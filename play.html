@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17251e">
+  <meta name="description" content="1845–1852, 아일랜드 대기근 속 가상의 마을을 돌보는 생존형 사회 관리 시뮬레이션.">
+  <title>마지막 수확 — The Last Harvest</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap');
+:root{color-scheme:dark;--bg:#101a16;--panel:#19271f;--line:#354237;--text:#e2e3d6;--muted:#919e8b;--gold:#c5ac76;--green:#a6bc87;--red:#d08a70;--serif:'Noto Serif KR',Georgia,serif;--sans:'Noto Sans KR','Malgun Gothic',sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:13px/1.6 var(--sans);background-image:radial-gradient(ellipse at 45% 0,#24312544,transparent 70%)}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button{color:inherit}button:disabled{cursor:not-allowed;opacity:.38}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #e2cb91;outline-offset:4px}button,a{touch-action:manipulation}a{color:var(--gold)}button{transition:background .18s,border-color .18s,transform .18s}button:hover:not(:disabled){filter:brightness(1.15)}h1,h2,h3,p{margin:0}button{border:0}button:active:not(:disabled){transform:translateY(1px)}.rail{position:fixed;inset:0 auto 0 0;width:83px;background:#15221c;border-right:1px solid var(--line);display:flex;align-items:center;flex-direction:column;z-index:5}.monogram{font:29px/1 Georgia,serif;color:#dcc595;text-decoration:none;border:1px solid #8b805e;width:46px;height:55px;text-align:center;padding-top:7px;margin:29px 0 43px}.monogram span{display:block;font:9px/1.7 Georgia,serif;letter-spacing:3px;padding-left:3px}.rail nav{width:100%;display:grid;gap:15px}.nav{position:relative;background:none;color:#839483;width:100%;padding:13px 0;display:grid;justify-items:center;gap:4px}.nav>span{font-size:24px;line-height:1.2}.nav small{font-size:10px}.nav.active{color:#d9c28b;background:#2f3b2b}.nav.active:before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:var(--gold)}.rail-help{margin-top:auto;width:25px;height:25px;border:1px solid #7a8b77;border-radius:50%;background:none;color:var(--muted);font-family:Georgia}.rail-line{writing-mode:vertical-rl;font:9px Georgia;letter-spacing:3px;color:#6c7c69;margin:28px 0}.header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:29px 0 24px}.eyebrow{font:10px/1.4 Georgia,serif;letter-spacing:2px;color:var(--gold)}h1{font:600 31px/1.5 var(--serif);letter-spacing:-1px;margin-top:5px}h1 span{font:italic 16px Georgia,serif;letter-spacing:0;color:#9da38b;margin-left:17px}main{max-width:1700px;margin-left:83px;padding:0 36px}.header-right{display:flex;align-items:center;gap:24px}.save-status{color:#91a18b;font-size:10px}.save-status:before{content:'•';color:#a5b883;margin-right:6px}.quiet{background:transparent;border:1px solid var(--line);font-size:11px;padding:8px 12px;color:#b7bea9}.quiet span{margin-left:14px}.datebar{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:11px}.datebar>div{display:flex;gap:14px;align-items:center}.datebar strong{font-weight:500}.datebar>div:last-child strong{font:500 16px var(--serif);color:#e4d3a8}.datebar>div:last-child>span{color:var(--muted);font-size:10px}.location-note{color:#778873;font-size:10px}.live-dot{display:inline-block;background:#acba91;width:5px;height:5px;border-radius:50%}.resources{display:grid;grid-template-columns:1.12fr 1.12fr 1.12fr 1fr 1fr;border-bottom:1px solid var(--line);margin-bottom:25px;padding:24px 0}.resource{padding:0 22px;border-right:1px solid var(--line);min-width:0}.resource:first-child{padding-left:0}.resource:last-child{border:0}.resource-head{font-size:11px;color:#b5c0aa;display:flex;align-items:center;justify-content:space-between;gap:5px}.resource-head .icon{color:#8fa57e;font-size:17px}.resource.gold .resource-head{color:#c4ae81}.resource-number{font:30px/1.5 Georgia,serif;letter-spacing:-.5px;font-variant-numeric:tabular-nums}.resource-number small{font:10px var(--sans);color:var(--muted);margin-left:7px;letter-spacing:0}.resource-foot{font-size:10px;color:var(--muted);white-space:nowrap}.resource-foot .bad{color:var(--red)}.resource-foot .good{color:var(--green)}.lock-tag{border:1px solid #79684488;background:#75633822;font-size:8px;padding:1px 4px;color:#c6af7d;letter-spacing:1px}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:22px;align-items:start}.left-column,.right-column{display:grid;gap:20px;min-width:0}.panel{border:1px solid var(--line);background:var(--panel)}.panel-heading{display:flex;align-items:center;justify-content:space-between;padding:19px 22px;gap:14px}.panel-heading .eyebrow{font-size:9px;color:#96a68b;letter-spacing:1.7px}h2{font:500 19px/1.6 var(--serif);letter-spacing:-.6px}.panel-heading h2{margin-top:3px}.map-key{font-size:9px;color:#9aaa90;display:flex;align-items:center;gap:6px;white-space:nowrap}.map-key i{width:5px;height:5px;background:#acbd8e;border-radius:50%;margin-left:7px}.map-key i.gold{background:#bda26b}.map{aspect-ratio:1.86;min-height:280px;position:relative;overflow:hidden;background:#273b2d}.map svg{width:100%;height:100%;display:block;position:absolute;inset:0}.map:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 30%,#17241f77 100%);box-shadow:inset 0 0 45px #14291f88}.map-label{position:absolute;z-index:1;transform:translate(-50%,-50%);border:1px solid #80936b77;background:#192c22eb;color:#d1d9bd;padding:5px 10px;text-align:left;box-shadow:0 4px 15px #10191255;white-space:nowrap;font-size:11px}.map-label small{display:block;color:#95aa87;font-size:9px}.map-label.owned{border-color:#a48b5066;background:#2e3020ed;color:#dcc69a}.map-label.owned small{color:#bda46e}.map-label:hover{border-color:#d6c08c}.compass{position:absolute;right:22px;top:17px;z-index:1;font:10px Georgia;color:#c7c8a3;text-align:center}.compass b{display:block;font-size:30px;font-weight:400;line-height:1.1}.map-caption{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#8f9f85;padding:12px 19px;border-top:1px solid var(--line);gap:8px}.map-caption>span{display:flex;gap:8px;align-items:center}.text-link{background:transparent;color:#a7b99a;font-size:10px;white-space:nowrap}.dispatch{padding:21px 22px 16px;background:#e0d7bd;color:#393e30;position:relative;background-image:repeating-linear-gradient(5deg,transparent 0,transparent 3px,#736d4710 4px)}.dispatch-top{display:flex;align-items:center;justify-content:space-between;gap:5px}.dispatch-top .eyebrow{font-size:9px;color:#7b7052;letter-spacing:1.6px}.dispatch-top>span:last-child{font-size:9px;color:#7b7052}.letter-mark{font:27px Georgia;color:#a08e63;text-align:center;margin:14px 0 5px}.dispatch h2{font-size:21px;letter-spacing:-1px;line-height:1.6;margin-bottom:10px}.dispatch p{font-size:12px;line-height:1.95;color:#686653}.dispatch-foot{display:block;font:8px Georgia;letter-spacing:1.7px;color:#9b9273;text-align:center;margin-top:16px;padding-top:12px;border-top:1px solid #b5ad9166}#event-choices{display:grid;gap:8px;margin-top:20px}.choice{display:block;text-align:left;background:#d6ceb4;color:#424937;padding:10px 12px;border:1px solid #aaa688;font-size:11px}.choice:first-child{background:#344736;border-color:#344736;color:#e5e1cc}.choice small{display:block;opacity:.68;font-size:9px;margin-top:3px}.event-resolved{font:12px/1.8 var(--serif);color:#576247;text-align:center;padding:11px;background:#64725016;border:1px solid #69775544}.actions-panel .panel-heading{padding-bottom:14px}.actions-panel h2{font-size:18px}.pill{border:1px solid #6a795a;color:#b7c0a2;font-size:10px;padding:2px 8px;white-space:nowrap}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 15px 16px}.action{background:#223327;border:1px solid #405039;text-align:left;padding:10px;min-height:71px}.action strong{font-size:11px;font-weight:500;display:block}.action .action-symbol{color:#a3b587;display:inline-block;font:20px Georgia;margin-bottom:3px}.action small{display:block;font-size:9px;color:#91a182;line-height:1.5}.action.risky{background:#332f22;border-color:#62543a}.action.risky .action-symbol,.action.risky small{color:#bba16e}.action:disabled{opacity:.48}.policy-panel .panel-heading{padding-bottom:17px}.subtle{font-size:10px;color:#84917b;white-space:nowrap}.allocation-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:0 22px 18px}.allocation-grid>div+div{border-left:1px solid var(--line);padding-left:25px}.field-label{display:flex;justify-content:space-between;align-items:center;font-size:11px;gap:10px;margin-bottom:12px;color:#c5cfb7}.field-label>span{font:12px Georgia;color:var(--gold)}.segments{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid #4b5b40}.segments button{background:transparent;font-size:11px;padding:7px 0;color:#94a285;border-right:1px solid #4b5b40}.segments button:last-child{border:0}.segments button small{display:block;font:10px/1.8 Georgia;opacity:.7}.segments .selected{background:#526245;color:#eee9cf}.field-hint{font-size:10px;color:#85967b;line-height:1.8;margin-top:9px}input[type=range]{width:100%;height:20px;margin:0;accent-color:#c6ae76;cursor:pointer}input[type=range]:disabled{cursor:not-allowed}.range-labels{display:flex;justify-content:space-between;color:#869578;font-size:9px}.cattle-control{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:8px}.cattle-control label{font-size:10px;color:#a0af92}.cattle-control small{font-size:8px;color:#7d8d71;margin-left:3px}.cattle-control select{font-size:10px;background:#223124;color:#c5cdb5;border:1px solid #485640;padding:4px}.forecast{border-top:1px solid var(--line);padding:11px 22px;font-size:10px;color:#a2b292;display:flex;gap:15px;flex-wrap:wrap;background:#15231b66}.forecast strong{color:#dcc79c;font-weight:500}.forecast .danger{color:var(--red)}.pressure-strip{display:grid;grid-template-columns:1fr 1fr 1.3fr;align-items:center;gap:32px;padding:23px 0;border-bottom:1px solid var(--line)}.pressure-strip>div{display:flex;gap:13px;align-items:center;font-size:10px;color:#a4b195}.pressure-strip>div>span{white-space:nowrap}.pressure-strip strong{font:13px Georgia;color:#c5ceb7;min-width:29px}.meter{height:4px;background:#344131;position:relative;flex:1}.meter i{display:block;height:100%;background:#92aa7e;transition:width .5s}.meter.pressure i{background:#b49764}.meter b{position:absolute;width:1px;background:#e7c295;height:10px;top:-3px;left:65%}.pressure-strip p{font-size:9px;color:#8f9b81;line-height:1.8}.turn-footer{padding:24px 0 17px;display:flex;align-items:center;justify-content:space-between;gap:20px}.turn-footer .eyebrow{font-size:9px;letter-spacing:2px;color:#8c9c80}.turn-footer p{font:13px var(--serif);color:#a8b29b;margin-top:6px}.next-month{background:#c8b47f;color:#253125;padding:16px 24px;min-width:245px;text-align:left;font:600 14px var(--serif);box-shadow:0 4px 20px #080c0a44}.next-month span{float:right;font:22px/1 Georgia;margin-left:45px}.historical-note{color:#65765f;font-size:9px;padding-bottom:20px}.historical-note button{background:none;font-size:9px;color:#929f82;padding:0;margin-left:5px}.hidden{display:none!important}.journal{max-height:340px;overflow-y:auto;padding:0 22px 18px;scrollbar-width:thin}.entry{border-top:1px solid var(--line);padding:15px 0;display:grid;grid-template-columns:63px 1fr;gap:12px}.entry time{font:10px/1.7 Georgia;color:#a49a73}.entry h3{font:500 13px var(--serif);margin-bottom:7px;color:#ced4bd}.entry p{font-size:11px;color:#92a486}.entry.danger h3{color:#d0a084}#ledger{padding:0 22px 22px;min-height:323px}.ledger-explainer{font:15px/1.8 var(--serif);color:#cdbb92;padding:10px 0 17px}.ledger-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:12px}.ledger-row span:last-child{color:#cbb885;font:15px Georgia}.ledger-block{margin-top:20px;padding:16px;border:1px solid #84714566;background:#73623917}.ledger-block h3{color:#c9b383;font:14px var(--serif);margin-bottom:8px}.ledger-block p{font-size:11px;color:#a2a58c}.history-chart{height:90px;display:flex;gap:2px;align-items:end;margin-top:17px;border-bottom:1px solid #4c5b41}.history-chart i{background:#94aa78;flex:1;min-width:1px;display:block}.history-chart-label{font-size:9px;color:#899a7c;margin-top:5px}dialog{max-width:660px;width:calc(100% - 36px);max-height:85vh;overflow-y:auto;padding:27px;background:#1d2c22;color:#dce1cf;border:1px solid #7c8866;box-shadow:0 20px 100px #0008}dialog::backdrop{background:#09130edf;backdrop-filter:blur(4px)}.modal-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #495840;padding-bottom:14px;margin-bottom:20px}.modal-head button{font-size:24px;background:none;color:#b8c4a5;padding:0 7px}#modal-body h2{font-size:24px;margin:10px 0 15px}#modal-body h3{font-size:13px;color:var(--gold);margin:20px 0 7px}#modal-body p,#modal-body li{font-size:12px;color:#aeba9f;line-height:1.9}#modal-body ul,#modal-body ol{padding-left:20px}#modal-body a{overflow-wrap:anywhere}.modal-actions{display:flex;gap:12px;margin-top:23px}.modal-actions button{padding:12px 18px;border:1px solid #657454;background:#43543a;color:#e0e4ce}.modal-actions button.risky{background:#7b4a34;border-color:#946249}.big-number{font:64px Georgia;color:#d7c490;margin:12px 0}.big-number small{font:15px var(--sans);color:#9da98e}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.result-grid div{background:#263827;padding:12px;font-size:10px;color:#9ead8f}.result-grid strong{display:block;font:25px/1.6 Georgia;color:#d3d8bd}.modal-callout{border-left:2px solid var(--gold);padding:10px 15px;background:#cdb87a0c;margin:15px 0}#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,15px);max-width:90vw;padding:12px 22px;background:#d4c7a2;color:#293527;box-shadow:0 6px 35px #0006;opacity:0;pointer-events:none;transition:.2s;z-index:20;font-size:12px}#toast.visible{opacity:1;transform:translate(-50%,0)}
+@media(min-width:1500px){main{padding:0 48px}.workspace{grid-template-columns:minmax(0,1fr) 365px}.map{aspect-ratio:1.95}.dispatch{padding:24px 27px}.actions{gap:9px;padding:0 20px 20px}.action{padding:11px 13px}.resource-number{font-size:34px}.header{padding-top:33px}}
+@media(max-width:1150px){main{padding:0 23px}.workspace{grid-template-columns:minmax(0,1fr) 285px;gap:15px}.map-key{display:none}.resource{padding:0 12px}.resource-foot{font-size:9px}.resource-number{font-size:26px}.allocation-grid{gap:15px;padding:0 17px 17px}.allocation-grid>div+div{padding-left:15px}.cattle-control small{display:none}.dispatch{padding:18px}.actions{padding:0 12px 12px}.action{padding:8px}.pressure-strip{gap:18px}.header-right{gap:12px}.save-status{display:none}.map{aspect-ratio:1.65}.map-label{font-size:10px;padding:4px 7px}.map-label small{font-size:8px}.panel-heading{padding:17px}.map-caption{padding:10px}.map-weather{font-size:9px}}
+@media(max-width:900px){.rail{width:64px}.monogram{width:40px;height:48px;font-size:25px}.monogram span{font-size:8px}main{margin-left:64px;padding:0 20px}.workspace{grid-template-columns:1fr}.right-column{grid-template-columns:1fr 1fr;gap:15px}.resources{grid-template-columns:repeat(5,1fr)}.resource{padding:0 10px}.resource-head{font-size:10px}.resource-head .icon{display:none}.resource-foot{white-space:normal;min-height:28px}.resource-number small{margin-left:3px}.map{aspect-ratio:1.95}.map-label{font-size:11px}.map-label small{font-size:9px}.map-key{display:flex}.header h1 span{font-size:13px;margin-left:10px}.pressure-strip{grid-template-columns:1fr 1fr}.pressure-strip p{grid-column:1/-1}.dispatch p{font-size:11px}.dispatch h2{font-size:20px}.pressure-strip{padding:20px 0;gap:15px}.turn-footer{padding-top:20px}}
+@media(max-width:580px){.rail{width:51px}.monogram{width:32px;height:41px;font-size:21px;margin-top:21px;margin-bottom:27px}.monogram span{font-size:7px;letter-spacing:2px}.nav{padding:12px 0}.nav>span{font-size:22px}.nav small{font-size:8px}.rail-line{font-size:8px}.rail-help{margin-bottom:0}main{margin-left:51px;padding:0 13px}.header{padding:20px 0 16px;gap:8px}.header .eyebrow{font-size:7px;letter-spacing:1.2px}h1{font-size:25px}h1 span{display:none}.header .quiet{font-size:9px;padding:6px}.header .quiet span{margin-left:2px}.datebar{align-items:flex-start;gap:6px;flex-direction:column;padding:10px 0}.datebar>div{gap:9px}.datebar>div:last-child{width:100%;justify-content:space-between}.location-note{font-size:8px}.resources{grid-template-columns:repeat(3,1fr);padding:15px 0;gap:16px 0;margin-bottom:15px}.resource:nth-child(3){border:0}.resource:nth-child(4){padding-left:0}.resource:nth-child(n+4){border-top:1px solid var(--line);padding-top:12px}.resource:last-child{grid-column:span 2;border-top:1px solid var(--line)}.resource-number{font-size:26px;line-height:1.4}.resource-foot{min-height:0;font-size:8px}.resource-head{font-size:9px}.lock-tag{font-size:7px}.panel-heading{padding:14px}.panel-heading .eyebrow{font-size:7px}h2{font-size:17px}.map-key{font-size:7px;gap:4px}.map-key i{margin-left:0;width:4px;height:4px}.map{aspect-ratio:1.13;min-height:0}.map svg{width:165%;max-width:none;left:-35%}.map-label{font-size:9px;padding:4px 6px}.map-label small{font-size:7px}.map-label[data-place=fields]{left:21%!important;top:25%!important}.map-label[data-place=homes]{left:55%!important;top:49%!important}.map-label[data-place=granary]{left:73%!important;top:70%!important}.map-label[data-place=harbor]{left:21%!important;top:86%!important}.map-label[data-place=estate]{left:76%!important;top:16%!important}.map-label[data-place=church]{left:80%!important;top:37%!important}.compass{right:10px;top:10px}.map-caption{font-size:8px;padding:10px}.map-caption .text-link{font-size:8px}.allocation-grid{grid-template-columns:1fr;gap:18px;padding:0 14px 16px}.allocation-grid>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:15px}.field-label{margin-bottom:8px}.field-hint{font-size:9px}.cattle-control small{display:inline}.segments button{padding:6px}.segments button small{display:inline;margin-left:4px}.forecast{padding:12px 14px;gap:6px 13px;font-size:9px}.right-column{grid-template-columns:1fr}.dispatch{padding:19px}.dispatch h2{font-size:23px}.dispatch p{font-size:12px}.actions{grid-template-columns:1fr 1fr}.action{padding:12px}.action strong{font-size:12px}.action small{font-size:10px}.pressure-strip{grid-template-columns:1fr;gap:15px}.pressure-strip p{font-size:9px}.turn-footer{align-items:stretch;flex-direction:column;gap:15px}.next-month{width:100%;padding:16px}.turn-footer p{font-size:11px}.historical-note{font-size:8px;line-height:1.8}.journal{padding:0 14px 14px}.entry{grid-template-columns:42px 1fr;gap:8px}.entry h3{font-size:12px}.entry p{font-size:10px}#ledger{padding:0 14px 15px}.ledger-explainer{font-size:13px}.subtle{font-size:8px}dialog{padding:19px}.result-grid{gap:5px}.result-grid div{padding:8px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* The harsh systems: cold rain, people, fever, departures and unrest. */
+:root{--bg:#11191b;--panel:#1b2728;--line:#3a4544;--muted:#9ba7a1;--green:#a6b3a0;--red:#d69c88}
+body{background-image:radial-gradient(ellipse at 40% 0,#53646b1c,transparent 65%)}.rail{background:#172123}.map{background:#263332}.map>svg{filter:saturate(.38) brightness(.84);transition:filter 1s}.town-distressed .map>svg{filter:saturate(.1) brightness(.67)}.map-label{z-index:4}.map:after{z-index:2}.compass{z-index:4}.cold-rain{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}.cold-rain i{position:absolute;inset:-80px;background:repeating-linear-gradient(111deg,transparent 0 39px,#bfd2dc28 40px,#b9cad946 41px,transparent 42px 91px);opacity:.36;animation:cold-rain .7s linear infinite}.cold-rain i+i{background-size:67px 100%;opacity:.2;animation-duration:1.15s;animation-delay:-.4s}.sea-fog{position:absolute;inset:0;background:linear-gradient(150deg,#9faeb622,transparent 50%,#9aa8ab15);pointer-events:none;z-index:1;animation:sea-fog 13s ease-in-out infinite alternate}.resident-body{transform-box:fill-box;transform-origin:center bottom;animation:resident-shiver 3.5s ease-in-out infinite;animation-delay:var(--walk-delay)}.emaciated .resident-body{animation-duration:2.2s}.motion-paused .cold-rain{display:none}.motion-paused .sea-fog,.motion-paused .resident-body{animation:none}.map-caption>div{display:flex;gap:10px}.map-caption .text-link{font-size:9px}
+@keyframes cold-rain{from{transform:translate(20px,-36px)}to{transform:translate(-8px,36px)}}@keyframes sea-fog{to{opacity:.25;transform:translateX(15px)}}@keyframes resident-shiver{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+#survival-monitor{display:flex;border-top:1px solid var(--line)}.resident-portraits{width:34%;min-width:180px;display:flex;align-items:end;justify-content:space-around;padding:12px 8px 17px;background:#101a1c66;border-right:1px solid var(--line)}.resident-portraits figure{margin:0;width:33.33%;text-align:center;min-width:0}.resident-portraits svg{height:90px;max-width:100%;display:block;margin:auto;filter:saturate(.35)}.resident-portraits figcaption{font:11px var(--serif);color:#c9c8b8}.resident-portraits figcaption span{display:block;font:8px/1.8 var(--sans);color:#7f9393;margin-top:4px;white-space:nowrap}.hardship-grid{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:8px 12px;gap:0 13px}.hardship-stat{padding:9px 0;min-width:0}.hardship-stat>span{font-size:9px;color:#9caaa3;display:block}.hardship-stat strong{display:block;font:21px/1.7 Georgia,serif;color:#d3cfb8;white-space:nowrap}.hardship-stat small{display:block;font-size:8px;color:#82958e}.hardship-stat.critical strong{color:#d09a85}.migration-totals{display:flex;gap:25px;padding:0 22px 16px;flex-wrap:wrap;font-size:11px;color:#9faeaa}.migration-totals strong{font:18px Georgia;color:#d0c5a1;margin-left:5px}.danger,.migration-totals .danger{color:var(--red)}.voyage-list{border-top:1px solid var(--line);padding:0 22px}.empty-voyage{padding:15px 0;color:#7e9291;font:11px/1.8 var(--serif)}.voyage-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.voyage-row:last-child{border:0}.voyage-row strong{font:12px var(--serif);color:#c3c8bb}.voyage-row small{display:block;font-size:10px;color:#94a29a;margin-top:6px}.voyage-row>span{color:#c0ad81;font-size:10px;white-space:nowrap}.crisis-banner{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 20px;border:1px solid #95715e;background:#533c3222;margin-bottom:20px}.crisis-banner strong{font:14px var(--serif);color:#ddb49c}.crisis-banner span{display:block;font-size:11px;color:#ad9e8f;margin-top:5px}.crisis-banner button{background:#9e7e5c;color:#172322;font:12px var(--serif);padding:11px 16px;white-space:nowrap}.crisis-choice,.choice.crisis-choice:first-child{background:#714637;border-color:#885846;color:#eee1c8}.story-ornament{text-align:center;font:38px Georgia;color:#9ca58c;margin:15px 0}.story-choices{display:grid;gap:11px;margin-top:24px}.story-choices .choice{font-size:13px;padding:15px;background:#2f403c;color:#dedfce;border-color:#62716a}.story-choices .crisis-choice{background:#694537;color:#eee1c8;border-color:#926a56}.story-choices .choice small{font-size:11px;line-height:1.8;margin-top:7px;opacity:.8}.story-foot{font-size:10px!important;color:#8fa095!important;margin-top:18px!important;line-height:1.8!important}.voyage-letter{border-top:1px solid var(--line);margin-top:20px;padding-top:6px}.voyage-form{margin-top:20px}.voyage-form>label:first-child{display:flex;flex-direction:column;gap:9px;font-size:12px;color:#b9c3b1}.voyage-form select{padding:11px;background:#263934;color:#e1dfca;border:1px solid #596b60;max-width:100%;font-size:12px}.supply-check{display:flex;align-items:flex-start;gap:9px;font-size:11px;color:#afbcaa;margin:16px 0}.supply-check input{accent-color:var(--gold);margin-top:4px}.order-cost{margin-top:15px!important}.population-equation{flex-wrap:wrap;gap:8px}.turn-footer{position:sticky;bottom:0;z-index:6;background:#111b1eee;border-top:1px solid var(--line);padding:16px 0;box-shadow:0 -12px 30px #10191b66;backdrop-filter:blur(8px)}#toast{bottom:100px}.modal-actions{flex-wrap:wrap}
+@media(max-width:1150px){.resident-portraits{min-width:140px;width:30%;padding:10px 5px}.resident-portraits svg{height:78px}.resident-portraits figcaption{font-size:10px}.resident-portraits figcaption span{font-size:7px}.hardship-grid{gap:0 9px;padding:8px 10px}.hardship-stat strong{font-size:18px}.hardship-stat small{font-size:7px}}
+@media(max-width:900px){.hardship-grid{padding:10px 18px}.resident-portraits{width:33%;min-width:170px}.resident-portraits svg{height:90px}.hardship-stat strong{font-size:21px}.right-column{grid-template-columns:1fr 1fr}.turn-footer p{font-size:11px}}
+@media(max-width:580px){.right-column{grid-template-columns:1fr}#survival-monitor{display:block}.resident-portraits{width:100%;border-right:0;border-bottom:1px solid var(--line);padding:4px 8px 13px}.resident-portraits svg{height:78px}.resident-portraits figcaption{font-size:11px}.resident-portraits figcaption span{font-size:8px}.hardship-grid{padding:8px 13px;gap:3px 10px}.hardship-stat strong{font-size:20px}.hardship-stat small{font-size:8px}.migration-totals{padding:0 14px 13px;gap:12px;font-size:9px}.migration-totals strong{font-size:17px;margin-left:3px}.voyage-list{padding:0 14px}.voyage-row small{font-size:9px}.voyages-panel .subtle{font-size:7px}.survival-panel .panel-heading{gap:5px}.survival-panel .text-link{font-size:8px}.map-label[data-place=workhouse]{left:77%!important;top:93%!important}.map-label[data-place=granary]{left:71%!important;top:70%!important}.map-caption{align-items:flex-start;gap:5px}.map-caption>span{max-width:66%;line-height:1.7}.map-caption>div{flex-direction:column;gap:3px}.map-caption .text-link{font-size:7px}.crisis-banner{padding:14px;align-items:stretch;flex-direction:column}.crisis-banner strong{font-size:13px}.crisis-banner span{font-size:10px}.story-choices .choice{font-size:12px;padding:12px}.story-choices .choice small{font-size:10px}.population-equation span:last-child{font-size:13px}.turn-footer{padding:10px 0;gap:8px}.turn-footer .eyebrow{display:none}.turn-footer p{margin:0;font-size:9px;line-height:1.6}.next-month{padding:13px 18px}.empty-voyage{font-size:10px}.result-grid{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){.cold-rain i,.sea-fog,.resident-body{animation:none!important}.map>svg{transition:none!important}}
+
+</style>
+</head>
+<body>
+  <aside class="rail" aria-label="주 메뉴">
+    <a class="monogram" href="#" aria-label="마지막 수확 홈">LH<span>1845</span></a>
+    <nav><button class="nav active" data-view="village" aria-label="마을 지도" title="마을 지도"><span aria-hidden="true">⌖</span><small>마을</small></button><button class="nav" data-view="ledger" aria-label="자원 장부" title="자원 장부"><span aria-hidden="true">▤</span><small>장부</small></button><button class="nav" data-view="journal" aria-label="행정 기록" title="행정 기록"><span aria-hidden="true">✎</span><small>기록</small></button></nav>
+    <button id="help" class="rail-help" aria-label="게임 안내">?</button><span class="rail-line">AN GORTA MÓR</span>
+  </aside>
+  <main>
+    <header class="header"><div><div class="eyebrow">A SURVIVAL CHRONICLE · 1845–1852</div><h1>마지막 수확 <span>The Last Harvest</span></h1></div><div class="header-right"><span class="save-status" id="save-status">로컬 자동 저장</span><button id="restart" class="quiet">새 기록 시작 <span aria-hidden="true">↗</span></button></div></header>
+    <section class="datebar"><div><span class="live-dot"></span><strong>킬모라, 아일랜드 서부</strong><span class="location-note">가상의 해안 마을</span></div><div><span id="season"></span><strong id="date"></strong><span id="turn"></span></div></section>
+    <section id="resources" class="resources" aria-label="마을 주요 자원"></section>
+    <div id="crisis-banner" class="crisis-banner hidden" role="alert"></div>
+    <div class="workspace">
+      <div class="left-column">
+        <section id="village-view" class="view panel map-panel">
+          <div class="panel-heading"><div><span class="eyebrow">THE TOWN & ITS PEOPLE</span><h2>당신이 지켜야 할 곳</h2></div><span class="map-key"><i></i>주민 자원 <i class="gold"></i>지주 소유</span></div>
+          <div id="map" class="map"></div>
+          <div class="map-caption"><span><i class="live-dot"></i><span id="map-weather">서쪽에서 차가운 바람이 불어옵니다.</span></span><div><button id="motion-toggle" class="text-link" aria-pressed="true">비 연출 켜짐</button><button id="map-info" class="text-link">지도 읽기 ↗</button></div></div>
+        </section>
+        <section id="ledger-view" class="view panel hidden"><div class="panel-heading"><div><span class="eyebrow">THE TWO LEDGERS</span><h2>식량은 누구의 것인가</h2></div></div><div id="ledger"></div></section>
+        <section id="journal-view" class="view panel hidden"><div class="panel-heading"><div><span class="eyebrow">THE ADMINISTRATOR'S RECORD</span><h2>행정관의 기록</h2></div><button id="download" class="quiet">기록 내려받기 ↓</button></div><div id="journal" class="journal"></div></section>
+        <section class="panel survival-panel"><div class="panel-heading"><div><span class="eyebrow">BEHIND EVERY NUMBER, A NAME</span><h2>살아남는다는 것</h2></div><button id="hardship-info" class="text-link">연쇄 재난의 규칙 ↗</button></div><div id="survival-monitor"></div></section>
+        <section class="panel policy-panel"><div class="panel-heading"><div><span class="eyebrow">MONTHLY ALLOCATION</span><h2>이번 달의 배분</h2></div><span class="subtle">월말에 집행됩니다</span></div><div class="allocation-grid"><div><label class="field-label">주민 배급 <span id="ration-value"></span></label><div class="segments" id="rations"><button data-ration="0.75">긴축 <small>75%</small></button><button data-ration="1" class="selected">정상 <small>100%</small></button><button data-ration="1.25">회복 <small>125%</small></button></div><p class="field-hint" id="food-hint"></p></div><div><label class="field-label" for="exports">곡물 수출 <span id="export-label"></span></label><input type="range" id="exports" min="0" max="22" value="22"><div class="range-labels"><span>주민을 위해 유보</span><span>계약 이행</span></div><div class="cattle-control"><label for="cattle-exports">가축으로 대납 <small>1마리 = 할당량 4</small></label><select id="cattle-exports" aria-label="수출할 가축 수"><option value="0">0마리</option><option value="1">1마리</option><option value="2">2마리</option><option value="3">3마리</option><option value="4">4마리</option></select></div></div></div><div class="forecast" id="forecast" aria-live="polite"></div></section>
+        <section id="voyages-panel" class="panel voyages-panel"></section>
+      </div>
+      <aside class="right-column">
+        <section class="panel dispatch"><div class="dispatch-top"><span class="eyebrow">ON YOUR DESK</span><span id="event-tag"></span></div><div class="letter-mark" aria-hidden="true">❦</div><h2 id="event-title"></h2><p id="event-body"></p><div id="event-choices"></div><span class="dispatch-foot">KILMORA · LOCAL ADMINISTRATION</span></section>
+        <section class="panel actions-panel"><div class="panel-heading"><div><span class="eyebrow">YOUR ORDERS</span><h2>행정 조치</h2></div><span id="action-count" class="pill"></span></div><div id="actions" class="actions"></div></section>
+      </aside>
+    </div>
+    <section class="pressure-strip"><div><span>행정관 평판</span><div class="meter"><i id="trust-meter"></i></div><strong id="trust-value"></strong></div><div><span>행정 압력</span><div class="meter pressure"><i id="pressure-meter"></i><b title="징벌 기준 65%"></b></div><strong id="pressure-value"></strong></div><p id="pressure-note"></p></section>
+    <footer class="turn-footer"><div><span class="eyebrow">EVERY MONTH, A CHOICE.</span><p id="footer-note">장부 너머에는 사람의 삶이 있습니다.</p></div><button id="next-month" class="next-month">한 달을 마감하다 <span aria-hidden="true">→</span></button></footer>
+    <p class="historical-note">역사적 상황을 바탕으로 한 가상 시뮬레이션입니다. 마을·수치·할당량·사건의 세부 규칙은 게임을 위해 구성했습니다. <button id="sources-link">역사와 게임의 경계 ↗</button></p>
+  </main>
+  <dialog id="modal"><div class="modal-head"><span class="eyebrow">THE LAST HARVEST</span><button id="close-modal" aria-label="창 닫기">×</button></div><div id="modal-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module">
+/* Deterministic, side-effect-free monthly simulation. Food is measured in
+ * provision units: one unit sustains 50 residents for one month. */
+const VERSION = 2;
+const INITIAL_POPULATION = 1200;
+const YEARS = [1845,1846,1847,1848,1849,1850,1851,1852];
+const HARVEST = [300,8,45,20,75,160,210,285];
+const ACTIONS = {
+  import: {name:'구호 식량 수입', cost:58, desc:'기금 £58 → 주민 식량 36단위. 즉시 도착합니다.'},
+  divert: {name:'수출 창고 개방', cost:0, desc:'봉인 곡물 최대 30단위를 식량으로 전환. 행정 압력 +24.'},
+  crops: {name:'대체 작물 경작', cost:52, desc:'매달 식량 +2.4단위. 최대 5단계. 감자 마름병의 영향을 받지 않습니다.'},
+  shelter: {name:'임시 거처 마련', cost:32, desc:'노숙 주민 최대 90명에게 거처 제공. 주민 신뢰 +4.'},
+  petition: {name:'구호 청원 발송', cost:6, desc:'이번 달 말 식량 26단위 도착. 3개월 간격으로 청원 가능.'},
+  works: {name:'공공근로 동원', cost:0, desc:'도로 포장·돌 깨기에 주민 동원. 정부 기금 +£32, 월말 식량 +4. 영양 결핍 +6, 노동 부담 +18, 발열 위험 +6, 사기 −4.'},
+  clinic: {name:'진료소 확충', cost:42, desc:'질병 피해 감소. 최대 3단계. 운영비는 단계당 월 £2.'},
+  slaughter: {name:'지주 가축 도축', cost:0, desc:'가축 4마리 → 주민 식량 24단위. 행정 압력 +18.'},
+  emigrate: {name:'이민선 마련', cost:48, desc:'북미 또는 호주 항로를 마련합니다. 승선자는 항해 중·정착·해상 사망으로 계속 추적됩니다. 항로와 추가 보급에 따라 비용·위험이 달라집니다.'},
+  workhouse: {name:'구빈원 수용', cost:10, desc:'최대 60명 수용, 총 정원 240명. 정부 기금 +£32와 수용자 몫의 월별 식량을 받지만 과밀과 가족 분리로 발열 위험·사기가 악화됩니다.'},
+  release: {name:'구빈원 퇴소', cost:0, desc:'최대 60명을 퇴소시켜 과밀을 줄입니다. 퇴소자는 거처가 필요합니다. 발열 위험 −5, 주민 사기 +3.'},
+  sanitation: {name:'격리·세탁·휴식', cost:24, desc:'발열 위험 −22, 노동 부담 −12. 격리와 작업 중단으로 주민 사기 −2. 이미 발생한 사망을 되돌릴 수는 없습니다.'},
+};
+const ROUTES={
+  america:{name:'북미행 이민선',destination:'북아메리카',cost:48,capacity:60,months:2,risk:.26},
+  australia:{name:'호주 지원 항로',destination:'호주',cost:82,capacity:40,months:4,risk:.06,from:1848},
+};
+const clamp = (n,a,b) => Math.max(a,Math.min(b,n));
+const round = n => Math.round(n*100)/100;
+function dateOf(s) { return {year:1845+Math.floor(s.turn/12), month:s.turn%12+1}; }
+function quotaOf(s) { return 22+(dateOf(s).year>=1847?4:0); }
+function foodNeed(s) { return round(s.population/50); }
+function seasonOf(s) { const m=dateOf(s).month; return m===12||m<=2?'겨울':m<=5?'봄':m<=8?'여름':'가을'; }
+function atSea(s) { return s.voyages.reduce((n,v)=>n+v.passengers,0); }
+function livingTotal(s) { return s.population+s.resettled+atSea(s); }
+function freshGame(seed=18451852) {
+  return {version:VERSION,turn:0,population:1200,deaths:0,food:228,grain:110,cattle:48,money:180,
+    hunger:0,homeless:0,pressure:14,trust:70,crops:0,clinic:0,actionsLeft:2,used:[],
+    ration:1,exportTarget:22,cattleExport:0,petitionReady:0,pendingAid:0,eventDone:false,resolvedEvent:null,
+    morale:70,fever:0,laborStrain:0,workhouse:0,unrest:0,seedReserve:100,
+    voyages:[],resettled:0,seaDeaths:0,violenceDeaths:0,feverDeaths:0,rng:seed>>>0,
+    voyageSerial:0,emigrationReady:0,riotReady:0,riotRetaliation:false,storySeen:[],
+    log:[{turn:0,title:'새 행정관의 부임',text:'킬모라의 1,200명이 당신의 결정을 기다립니다. 겨울 비축 감자는 주민의 것, 항구의 곡물과 가축은 지주의 것입니다.',tone:'neutral'}],history:[],ended:false,lastReport:null};
+}
+function record(s,title,text,tone='neutral') { s.log.unshift({turn:s.turn,title,text,tone}); }
+function adjust(s,key,amount) { s[key]=clamp(s[key]+amount,0,100); }
+function loseResidents(s,n) {
+  n=Math.min(s.population,Math.max(0,Math.round(n)));const before=Math.max(1,s.population);
+  s.homeless-=Math.floor(n*s.homeless/before);s.workhouse-=Math.floor(n*s.workhouse/before);
+  s.population-=n;s.deaths+=n;s.homeless=Math.min(s.homeless,s.population);s.workhouse=Math.min(s.workhouse,s.population-s.homeless);
+  return n;
+}
+function evict(s,n) { const count=Math.max(0,Math.min(s.population-s.workhouse-s.homeless,n));s.homeless+=count;return count; }
+function random(s) { s.rng=(Math.imul(s.rng,1664525)+1013904223)>>>0;return s.rng/4294967296; }
+function voyageTerms(s,options={}) {
+  const id=options.destination||'america',route=ROUTES[id];if(!route)return null;
+  const risk=clamp(route.risk+s.hunger*(id==='america'?.0012:.0005),0,.6)*(options.provisioned?.45:1);
+  return {...route,id,cost:route.cost+(options.provisioned?24:0),risk:round(risk),passengers:Math.min(route.capacity,s.population),provisioned:!!options.provisioned};
+}
+function crisisFor(s) {
+  if(s.ended||s.population<1||s.turn<s.riotReady)return null;
+  if(s.unrest>=65||(s.hunger>=70&&s.morale<=42))return {id:'riot',title:'창고 앞에 선 사람들',body:'굶주린 주민들이 봉인된 창고와 항구로 몰려왔습니다. 돌을 쥔 손과 빈 자루가 보입니다. 군을 부르면 발포가 허용됩니다. 길을 열어 주면 식량을 얻지만, 지주의 대리인은 마을 주거지 전체에 축출을 집행하겠다고 통보합니다.'};
+  return null;
+}
+function resolveCrisis(state,choice) {
+  if(!crisisFor(state)||!['suppress','standaside'].includes(choice))return {state,error:'지금 결정할 수 없는 위기 대응입니다.'};
+  const s=structuredClone(state);s.riotReady=s.turn+4;
+  if(choice==='suppress'){
+    const killed=loseResidents(s,Math.ceil(s.population*.018+s.unrest*.08));s.violenceDeaths+=killed;
+    adjust(s,'morale',-24);adjust(s,'trust',-22);adjust(s,'pressure',-16);adjust(s,'unrest',-52);
+    record(s,'발포 명령',`군이 주민들에게 발포했습니다. ${killed}명이 사망했습니다. 창고의 봉인은 유지되었습니다. 살아남은 가족들은 당신의 이름을 기억합니다.`,'danger');
+  }else{
+    const grain=s.grain;s.grain=0;s.food=round(s.food+grain*.6);s.riotRetaliation=true;s.exportTarget=0;s.cattleExport=0;
+    adjust(s,'morale',8);adjust(s,'trust',-8);adjust(s,'pressure',18);adjust(s,'unrest',-45);
+    record(s,'군을 부르지 않은 밤',`주민들이 곡물 ${grain}단위를 가져갔습니다. 운반 중 손실을 제외한 ${round(grain*.6)}단위가 식량이 되었습니다. 월말에 구빈원 밖의 모든 주거지에 집단 축출이 집행됩니다.`,'danger');
+  }
+  if(!s.population&&!atSea(s))s.ended=true;
+  return {state:s,error:null};
+}
+function actionReason(s,id,options={}) {
+  const a=ACTIONS[id];
+  if(!a) return '알 수 없는 조치입니다.';
+  if(s.ended) return '통치 기록이 종료되었습니다.';
+  if(crisisFor(s))return '먼저 창고 앞 폭동에 대응해야 합니다.';
+  if(!s.population)return '마을에는 항해 중인 주민을 기다리는 장부만 남았습니다.';
+  if(s.actionsLeft<1) return '이번 달 행정 조치를 모두 사용했습니다.';
+  if(s.used.includes(id)) return '이번 달 이미 시행했습니다.';
+  if(s.money<a.cost) return '기금이 부족합니다.';
+  if(id==='divert'&&s.grain<1) return '창고에 곡물이 없습니다.';
+  if(id==='slaughter'&&s.cattle<4) return '가축 4마리가 필요합니다.';
+  if(id==='crops'&&s.crops>=5) return '대체 경작지가 최대 규모입니다.';
+  if(id==='clinic'&&s.clinic>=3) return '진료소가 최대 규모입니다.';
+  if(id==='shelter'&&s.homeless===0) return '현재 노숙 주민이 없습니다.';
+  if(id==='petition'&&s.turn<s.petitionReady) return `${s.petitionReady-s.turn}개월 뒤 다시 청원할 수 있습니다.`;
+  if(id==='workhouse'&&(s.workhouse>=240||s.workhouse>=s.population))return '추가로 수용할 수 없습니다.';
+  if(id==='release'&&!s.workhouse)return '구빈원에 수용된 주민이 없습니다.';
+  if(id==='emigrate'){
+    const terms=voyageTerms(s,options);if(!terms)return '알 수 없는 항로입니다.';
+    if(terms.from&&dateOf(s).year<terms.from)return `${terms.from}년부터 지원 항로를 이용할 수 있습니다.`;
+    if(s.money<terms.cost)return '선임과 보급을 위한 기금이 부족합니다.';
+    if(s.turn<s.emigrationReady)return `${s.emigrationReady-s.turn}개월 뒤 다시 선박을 마련할 수 있습니다.`;
+  }
+  return '';
+}
+function takeAction(state,id,options={}) {
+  const reason=actionReason(state,id,options); if(reason) return {state,error:reason};
+  const s=structuredClone(state), a=ACTIONS[id]; s.money-=a.cost; s.actionsLeft--; s.used.push(id);
+  let detail=a.desc;
+  if(id==='import') s.food+=36;
+  if(id==='divert') {const n=Math.min(30,s.grain);s.grain-=n;s.food+=n;s.pressure=clamp(s.pressure+24,0,100);s.trust=clamp(s.trust+5,0,100);detail=`봉인 곡물 ${n}단위를 주민에게 돌렸습니다. 행정 압력이 24 증가했습니다.`;}
+  if(id==='crops') s.crops++;
+  if(id==='shelter') {const n=Math.min(s.homeless,90);s.homeless-=n;s.trust=clamp(s.trust+4,0,100);detail=`노숙 주민 ${n}명에게 거처를 마련했습니다.`;}
+  if(id==='petition') {s.pendingAid+=26;s.petitionReady=s.turn+3;}
+  if(id==='works') {s.money+=32;s.pendingAid+=4;adjust(s,'hunger',6);adjust(s,'laborStrain',18);adjust(s,'fever',6);adjust(s,'morale',-4);}
+  if(id==='clinic') s.clinic++;
+  if(id==='slaughter') {s.cattle-=4;s.food+=24;s.pressure=clamp(s.pressure+18,0,100);}
+  if(id==='workhouse'){
+    const n=Math.min(60,240-s.workhouse,s.population-s.workhouse);s.workhouse+=n;s.homeless=Math.max(0,s.homeless-n);s.money+=32;
+    adjust(s,'fever',5);adjust(s,'morale',-7);detail=`${n}명을 구빈원에 수용했습니다. 가족은 서로 다른 병동으로 나뉘었습니다. 정부 지원 £32가 도착했고 과밀 위험이 높아졌습니다.`;
+  }
+  if(id==='release') {const n=Math.min(60,s.workhouse);s.workhouse-=n;evict(s,n);adjust(s,'fever',-5);adjust(s,'morale',3);detail=`${n}명이 구빈원을 나왔습니다. 이들은 다시 거처가 필요합니다.`;}
+  if(id==='sanitation'){adjust(s,'fever',-22);adjust(s,'laborStrain',-12);adjust(s,'morale',-2);}
+  if(id==='emigrate'){
+    const terms=voyageTerms(s,options),n=terms.passengers;s.money-=terms.cost-a.cost;
+    const unhoused=Math.min(n,s.homeless);s.homeless-=unhoused;s.workhouse=Math.max(0,s.workhouse-(n-unhoused));s.population-=n;
+    s.voyages.push({id:++s.voyageSerial,destination:terms.id,passengers:n,remaining:terms.months,risk:terms.risk,provisioned:terms.provisioned,departedTurn:s.turn});
+    s.emigrationReady=s.turn+3;adjust(s,'morale',-6);adjust(s,'trust',-4);
+    detail=`${n}명이 ${terms.destination}로 떠났습니다. 항해 ${terms.months}개월, 1인당 사망 위험 ${Math.round(terms.risk*100)}%. 선임·보급 £${terms.cost}. 출항은 생존의 확인이 아닙니다.`;
+  }
+  record(s,a.name,detail,id==='divert'||id==='slaughter'?'danger':'neutral');
+  return {state:s,error:null};
+}
+const events = {
+  seedFamily:{id:'seed-family',personal:true,tag:'오브라이언 가족 · 씨감자',title:'내년의 봄을 먹은 가족',body:'노라 오브라이언이 자녀들의 손을 잡고 서 있습니다. 가족 여섯 명은 공동 종자 창고의 씨감자를 훔쳐 먹었습니다. “아이들이 밤새 울었습니다.” 대리인은 계약 위반을 이유로 이 가족을 집에서 내쫓으라고 요구합니다.',choices:[{label:'요구대로 가족을 축출한다',effect:'최대 6명 노숙 · 종자 −14 · 사기 −8 · 평판 −6 · 압력 −4',evict:6,seedReserve:-14,morale:-8,trust:-6,pressure:-4},{label:'눈감아 주고 남은 식량을 나눈다',effect:'식량 최대 4 사용 · 종자 −8 · 사기 +6 · 압력 +6',spendFood:4,seedReserve:-8,morale:6,pressure:6},{label:'£20로 종자를 보충하고 가족을 지킨다',effect:'기금 −£20 · 종자 손실 방지 · 사기 +5 · 압력 +3',money:-20,morale:5,pressure:3}]},
+  stoneRoad:{id:'stone-road',personal:true,tag:'패트릭의 작업장 · 공공근로',title:'어디에도 닿지 않는 길',body:'해안의 돌밭에서 패트릭이 쓰러졌습니다. 나흘째 돌을 깨던 그는 자신이 닦는 길이 어디로 이어지는지 모릅니다. 감독관은 출석 명부가 줄면 지원금도 줄어든다고 말합니다.',choices:[{label:'작업을 중단하고 휴식을 준다',effect:'기금 −£12 · 노동 부담 −18 · 발열 위험 −6 · 사기 +4',money:-12,laborStrain:-18,fever:-6,morale:4},{label:'명부를 채우고 작업을 계속한다',effect:'기금 +£14 · 월말 식량 +4 · 노동 부담 +12 · 사기 −8',money:14,aid:4,laborStrain:12,morale:-8}]},
+  separated:{id:'separated-family',personal:true,tag:'메리와 브리짓 · 구빈원',title:'문 하나를 사이에 둔 목소리',body:'구빈원에 들어온 메리는 딸 브리짓과 다른 병동에 배치되었습니다. 밤마다 아이의 기침 소리가 벽을 넘어옵니다. 원장은 가족의 면회를 허용하면 격리와 규율을 유지하기 어렵다고 말합니다.',choices:[{label:'간호 인력과 별도 방을 마련한다',effect:'기금 −£18 · 발열 위험 −12 · 사기 +6',money:-18,fever:-12,morale:6},{label:'규율에 따라 병동을 분리한다',effect:'사기 −9 · 행정 압력 −4 · 발열 위험 +5',morale:-9,pressure:-4,fever:5}]},
+  feverWard:{id:'fever-ward',personal:true,tag:'발열 병동 · 연쇄 재난',title:'담요 아래의 열',body:'진료소의 명부에 같은 주소가 반복됩니다. 과밀한 병동, 씻지 못한 옷, 지친 몸을 따라 발진티푸스가 번집니다. 의사는 식사만으로는 이 열을 멈출 수 없다고 말합니다.',choices:[{label:'병동을 비우고 세탁·격리를 시행한다',effect:'기금 −£24 · 발열 위험 −24 · 노동 부담 −10 · 사기 −3',money:-24,fever:-24,laborStrain:-10,morale:-3},{label:'문을 열어 둔 채 구호를 계속한다',effect:'월말 식량 +5 · 발열 위험 +12 · 사기 +2',aid:5,fever:12,morale:2}]},
+  emptyChair:{id:'empty-chair',personal:true,tag:'항구의 가족 · 이별',title:'식탁에 남은 빈자리',body:'이민선이 수평선 너머로 사라졌습니다. 아일린은 아버지가 앉던 의자를 치우지 못합니다. 사람들은 식량이 조금 더 오래 갈 것이라 말하지만, 도착했다는 편지는 아직 오지 않았습니다.',choices:[{label:'남은 가족의 식사를 지원한다',effect:'식량 최대 5 사용 · 사기 +6 · 평판 +3',spendFood:5,morale:6,trust:3},{label:'항해 결과가 올 때까지 기다린다',effect:'사기 −4',morale:-4}]},
+  arrival:{tag:'부임 문서',title:'두 개의 장부',body:'주민 명부에는 1,200명의 이름이, 지주의 장부에는 매달 내보낼 곡물의 양이 적혀 있습니다. 첫 공문에 무엇을 적겠습니까?',choices:[{label:'겨울 구호를 우선한다',effect:'식량 +14 · 행정 압력 +6',food:14,pressure:6},{label:'계약 이행을 약속한다',effect:'기금 +£18 · 주민 신뢰 −5',money:18,trust:-5}]},
+  first:{tag:'1845 · 첫 징후',title:'검게 변한 잎사귀',body:'일부 밭에서 이상한 냄새가 납니다. 이번 수확의 일부를 잃었습니다. 아직은 겨울을 넘길 수 있다는 말이 돌고 있습니다.',choices:[{label:'종자와 대체 작물을 확보한다',effect:'£25 사용 · 대체 경작 +1',money:-25,crops:1},{label:'남은 감자를 나누어 준다',effect:'식량 +10 · 주민 신뢰 +4',food:10,trust:4}]},
+  blight:{tag:'1846 · 감자 마름병',title:'땅은 아무것도 돌려주지 않았다',body:'감자를 캐면 검은 물이 흘러내립니다. 올해 수확은 평년의 약 2%. 항구에는 여전히 곡물 자루가 쌓여 있습니다. 지주의 수출 계약은 바뀌지 않았습니다.',choices:[{label:'재난 구호를 긴급 청원한다',effect:'월말 식량 +32 · 행정 압력 +4',aid:32,pressure:4},{label:'사유 창고를 긴급 개방한다',effect:'곡물 최대 24 → 식량 · 행정 압력 +20',divert:24,pressure:20}]},
+  soup:{tag:'1847 · 구호의 계절',title:'수프 한 그릇의 행렬',body:'한시적인 무료 급식 지원이 도착했습니다. 교회 앞에 길게 늘어선 행렬은 해가 질 때까지 줄어들지 않습니다.',choices:[{label:'식량을 즉시 배급한다',effect:'식량 +42',food:42},{label:'구호소에 식량과 거처를 배분한다',effect:'식량 +22 · 노숙 주민 최대 60명 수용',food:22,shelter:60}]},
+  repeal:{tag:'1847 · 행정 통보',title:'구호의 책임은 지방으로',body:'한시 구호 지원이 끝나갑니다. 중앙의 공문은 지역의 부담을 늘리고 있습니다. 겨울이 오기 전에 준비해야 합니다.',choices:[{label:'지역 모금으로 이어간다',effect:'기금 +£28 · 주민 신뢰 −8',money:28,trust:-8},{label:'공식 이의를 제기한다',effect:'주민 신뢰 +6 · 행정 압력 +8',trust:6,pressure:8}]},
+  frost:{tag:'겨울 보고',title:'지붕 없는 겨울',body:'해안에서 찬바람이 불어옵니다. 축출된 가족에게 겨울은 또 하나의 기근입니다. 식량과 거처를 함께 살펴야 합니다.',choices:[{label:'빈 건물에 가족들을 들인다',effect:'£12 사용 · 최대 50명 수용',money:-12,shelter:50},{label:'교회에 담요와 이탄을 요청한다',effect:'최대 18명 수용 · 주민 신뢰 +2',shelter:18,trust:2}]},
+  agent:{tag:'지주의 대리인',title:'런던에서 온 편지',body:'“토지 계약의 의무는 변하지 않습니다.” 대리인은 봉인 상태를 살피고, 다음 배의 출항일을 확인합니다.',choices:[{label:'행정 비용을 부담하고 협상한다',effect:'£12 사용 · 행정 압력 −14',money:-12,pressure:-14},{label:'주민들의 탄원서를 내민다',effect:'주민 신뢰 +4 · 행정 압력 +3',trust:4,pressure:3}]},
+  mutual:{tag:'마을 소식',title:'서로의 이름을 부르는 사람들',body:'이웃들이 함께 감자를 심고 아픈 가족을 돌봅니다. 작은 연대에도 땔감과 시간, 무엇보다 먹을 것이 필요합니다.',choices:[{label:'공동 경작을 지원한다',effect:'£16 사용 · 식량 +13 · 신뢰 +3',money:-16,food:13,trust:3},{label:'자원 돌봄을 조직한다',effect:'영양 결핍 −4 · 주민 신뢰 +2',hunger:-4,trust:2}]},
+};
+function eventFor(s) {
+  const {year,month}=dateOf(s);
+  if(s.eventDone&&s.resolvedEvent&&events[s.resolvedEvent])return events[s.resolvedEvent];
+  if(s.population===0)return events.mutual;
+  if(s.turn===0)return events.arrival;
+  if(year===1845&&month===9)return events.first;
+  if(year===1846&&month===9)return events.blight;
+  if(year===1847&&month===5)return events.soup;
+  if(year===1847&&month===9)return events.repeal;
+  if(!s.storySeen.includes('fever-ward')&&s.fever>=50)return events.feverWard;
+  if(!s.storySeen.includes('separated-family')&&s.workhouse>0)return events.separated;
+  if(!s.storySeen.includes('stone-road')&&s.laborStrain>=12)return events.stoneRoad;
+  if(!s.storySeen.includes('empty-chair')&&atSea(s)>0)return events.emptyChair;
+  if(!s.storySeen.includes('seed-family')&&(s.turn>=25||(s.turn>=18&&s.hunger>=18)))return events.seedFamily;
+  if(month===12)return events.frost;
+  if(month===3||month===7)return events.agent;
+  return events.mutual;
+}
+function choiceReason(s,index) {
+  const c=eventFor(s).choices[index];
+  if(!c)return '선택할 수 없는 응답입니다.';
+  if(s.ended||s.eventDone)return '이미 결정한 사안입니다.';
+  if(crisisFor(s))return '먼저 창고 앞 폭동에 대응해야 합니다.';
+  if(c.money<0&&s.money+c.money<0)return '기금이 부족합니다.';
+  if(c.crops&&s.crops>=5)return '대체 경작지가 최대 규모입니다.';
+  if(c.divert&&s.grain<1)return '창고에 곡물이 없습니다.';
+  return '';
+}
+function chooseEvent(state,index) {
+  const error=choiceReason(state,index);if(error)return {state,error};
+  const s=structuredClone(state),e=eventFor(s),c=e.choices[index];
+  for(const k of ['food','money','trust','pressure','hunger','crops','morale','fever','laborStrain','seedReserve'])if(c[k])s[k]+=c[k];
+  for(const k of ['trust','pressure','hunger','morale','fever','laborStrain','seedReserve'])s[k]=clamp(s[k],0,100);
+  if(c.shelter)s.homeless=Math.max(0,s.homeless-c.shelter);
+  if(c.aid)s.pendingAid+=c.aid;
+  if(c.divert){const n=Math.min(s.grain,c.divert);s.grain-=n;s.food+=n;}
+  if(c.spendFood)s.food=round(Math.max(0,s.food-c.spendFood));
+  if(c.evict)evict(s,c.evict);
+  if(e.personal)s.storySeen.push(e.id);
+  s.eventDone=true;s.resolvedEvent=Object.keys(events).find(key=>events[key]===e)||null;
+  record(s,e.title,`${c.label}. ${c.effect}`,e===events.blight?'danger':'neutral');
+  return {state:s,error:null};
+}
+function setPolicy(state,patch) {
+  if(state.ended)return state;
+  const s=structuredClone(state);
+  if([0.75,1,1.25].includes(patch.ration))s.ration=patch.ration;
+  if(Number.isFinite(patch.exportTarget))s.exportTarget=clamp(Math.round(patch.exportTarget),0,quotaOf(s));
+  if(Number.isFinite(patch.cattleExport))s.cattleExport=clamp(Math.round(patch.cattleExport),0,Math.min(4,s.cattle));
+  if(s.riotRetaliation){s.exportTarget=0;s.cattleExport=0;}
+  return s;
+}
+function settle(state) {
+  const s=structuredClone(state),{year,month}=dateOf(s), before=s.population;
+  const report={year,month,harvest:0,crops:0,foodUsed:0,grainShipped:0,cattleShipped:0,quota:quotaOf(s),shortfall:0,evicted:0,punished:false,starved:0,cold:0,disease:0,income:0,upkeep:0,aid:s.pendingAid,workhouseFood:0,collectiveEviction:false,seaLost:0,voyageLetters:[]};
+  // Aid and crops are available before this month's meals. Grain arrivals belong to the landlord.
+  s.food+=s.pendingAid;s.pendingAid=0;
+  const labor=0.55+0.45*s.population/INITIAL_POPULATION;
+  report.crops=round(s.crops*2.4*labor);s.food+=report.crops;
+  report.workhouseFood=round(s.workhouse/50);s.food+=report.workhouseFood;
+  if(month===9){report.harvest=Math.round((HARVEST[year-1845]||0)*labor*(.5+s.seedReserve/200));s.food+=report.harvest;}
+  if(month===3)s.cattle+=Math.max(0,Math.floor(s.cattle/6));
+  const supply=Math.round(17*labor)+(month===9?65:0);s.grain+=supply;
+  report.cattleShipped=s.riotRetaliation?0:Math.min(s.cattleExport,s.cattle,4);s.cattle-=report.cattleShipped;
+  const cattleCredit=report.cattleShipped*4;
+  report.grainShipped=s.riotRetaliation?0:Math.min(s.grain,s.exportTarget,Math.max(0,report.quota-cattleCredit));s.grain-=report.grainShipped;
+  report.shortfall=Math.max(0,report.quota-report.grainShipped-cattleCredit);
+  if(report.shortfall){
+    report.evicted=evict(s,s.riotRetaliation?s.population:Math.ceil(report.shortfall/report.quota*54));
+    report.collectiveEviction=s.riotRetaliation;s.pressure+=8+report.shortfall*0.35;s.trust-=6;
+  }else{s.pressure-=5;}
+  s.riotRetaliation=false;
+  // Requisition crosses a visible threshold; threshold and consequences are shown in UI.
+  if(s.pressure>=65){
+    report.punished=true;s.money=Math.max(0,s.money-30);s.grain=Math.max(0,s.grain-20);
+    report.evicted+=evict(s,45);s.pressure-=22;s.trust-=8;
+  }
+  const need=foodNeed(s), target=round(need*s.ration);
+  report.foodUsed=round(Math.min(s.food,target));s.food=round(Math.max(0,s.food-report.foodUsed));
+  const coverage=need?report.foodUsed/need:1;
+  s.hunger=clamp(s.hunger+(1-coverage)*35-(coverage>=1?10:0),0,100);
+  const crowding=s.workhouse/24+Math.max(0,s.workhouse-120)/18;
+  s.fever=clamp(s.fever+crowding+s.laborStrain*.18+Math.max(0,s.hunger-35)*.12-5-s.clinic*2,0,100);
+  report.starved=Math.min(before,Math.ceil(before*Math.max(0,s.hunger-24)/100*0.065));
+  const winter=month===12||month<=2;
+  report.cold=Math.min(before-report.starved,winter?Math.ceil(s.homeless*.09):Math.floor(s.homeless*.012));
+  const epidemic=s.fever>=35?(before*s.fever/100*.018+s.workhouse*s.fever/100*.045):0;
+  report.disease=Math.min(before-report.starved-report.cold,Math.floor((before*Math.max(0,s.hunger-42)/100*.016+epidemic)*(1-s.clinic*.23)));
+  // Exposure deaths belong to the unhoused; other casualties affect both wards and homes.
+  s.homeless-=report.cold;s.population-=report.cold;s.deaths+=report.cold;loseResidents(s,report.starved+report.disease);
+  const lost=report.starved+report.cold+report.disease;s.feverDeaths+=report.disease;
+  s.laborStrain=Math.max(0,s.laborStrain-7);
+  const underway=[];
+  for(const v of s.voyages){
+    v.remaining--;
+    if(v.remaining>0){underway.push(v);continue;}
+    let dead=0;for(let i=0;i<v.passengers;i++)if(random(s)<v.risk)dead++;
+    const arrived=v.passengers-dead;s.resettled+=arrived;s.deaths+=dead;s.seaDeaths+=dead;report.seaLost+=dead;
+    report.voyageLetters.push({id:v.id,destination:ROUTES[v.destination].destination,passengers:v.passengers,dead,arrived});
+    adjust(s,'morale',dead?-Math.ceil(dead/Math.max(1,v.passengers)*30):3);adjust(s,'trust',dead?-Math.ceil(dead/Math.max(1,v.passengers)*24):2);
+  }
+  s.voyages=underway;
+  report.income=round(7+s.trust*0.1+report.grainShipped*0.22+report.cattleShipped*1.5);report.upkeep=s.clinic*2;
+  s.money=round(Math.max(0,s.money+report.income-report.upkeep));
+  s.trust=clamp(s.trust+(coverage>=1?2:-4)-(lost?3:0),0,100);s.pressure=clamp(s.pressure,0,100);
+  adjust(s,'morale',(coverage>=1?1:-6)-(lost?4:0)-(s.homeless>s.population*.25?2:0));
+  const unrestGain=Math.max(0,s.hunger-35)*.3+Math.max(0,45-s.morale)*.22+(lost?4:0);
+  s.unrest=clamp(s.unrest+unrestGain-(coverage>=1&&s.morale>45?12:3),0,100);
+  report.lost=lost;report.survivors=s.population;report.coverage=coverage;report.foodAfter=s.food;report.grainAfter=s.grain;
+  report.fever=round(s.fever);report.unrest=round(s.unrest);report.totalSurvivors=livingTotal(s);report.allDeaths=lost+report.seaLost;
+  return {s,report};
+}
+function forecast(s) { return settle(s).report; }
+function monthBlock(s) {
+  if(s.ended)return '';
+  if(crisisFor(s))return '먼저 폭동에 대응해야 합니다.';
+  if(eventFor(s).personal&&!s.eventDone)return '한 가족의 사연에 응답한 뒤 마감하세요.';
+  return '';
+}
+function advanceMonth(state) {
+  if(state.ended||monthBlock(state))return state;
+  const {s,report}=settle(state);
+  if(report.harvest)record(s,'9월 감자 수확',`${report.harvest}단위를 수확했습니다.${dateOf(s).year===1846?' 감자 마름병으로 수확량이 붕괴했습니다.':''}`,report.harvest<50?'danger':'neutral');
+  if(report.evicted)record(s,report.punished?'군경의 징벌 집행':'소작료 체납과 축출',`${report.evicted}명이 거처를 잃었습니다.${report.punished?' 기금 최대 £30와 봉인 곡물 최대 20단위를 압수당했습니다.':''}`,'danger');
+  if(report.collectiveEviction)record(s,'마을 주거지의 집단 축출','창고 습격에 대한 보복으로 구빈원 밖의 주거지를 비우라는 명령이 집행되었습니다.','danger');
+  if(report.disease)record(s,'발열 병동의 명부',`영양실조와 전염병으로 ${report.disease}명이 사망했습니다. 발열 위험 ${report.fever}/100. 과밀한 구빈원과 노동 부담이 전염을 키웁니다.`,'danger');
+  for(const letter of report.voyageLetters)record(s,'바다 건너에서 온 편지',`${letter.destination}행 ${letter.passengers}명 중 ${letter.arrived}명 도착, ${letter.dead}명 해상 사망. 떠난 사람들의 운명도 이 마을의 장부에 남습니다.`,letter.dead?'danger':'neutral');
+  record(s,`${report.month}월 결산`,`${report.lost}명 마을 내 사망 · 마을 주민 ${report.survivors}명. 식량 ${report.foodAfter}단위, 지주 곡물 ${report.grainAfter}단위. 정착 ${s.resettled}명, 항해 중 ${atSea(s)}명.`,report.lost?'danger':'neutral');
+  s.history.push(report);s.lastReport=report;s.turn++;
+  s.ended=s.turn>=96||(s.population===0&&atSea(s)===0);s.actionsLeft=2;s.used=[];s.eventDone=false;s.resolvedEvent=null;
+  if(!s.ended)s.exportTarget=quotaOf(s);s.cattleExport=0;
+  if(s.ended)record(s,'행정 기록의 마지막 장',`처음의 1,200명 중 확인된 생존 ${s.population+s.resettled}명, 항해 중 ${atSea(s)}명, 사망 ${s.deaths}명. 해상 사망 ${s.seaDeaths}명, 발포 사망 ${s.violenceDeaths}명을 포함합니다.`);
+  return s;
+}
+function serialize(s) { return JSON.stringify(s); }
+function restore(raw) {
+  try {
+    let s=JSON.parse(raw);
+    if(!s||![1,VERSION].includes(s.version)||!Array.isArray(s.log)||!Array.isArray(s.history)||!Array.isArray(s.used))return null;
+    if(s.version===1){
+      if(s.population+s.deaths!==1200)return null;
+      const additions=freshGame();for(const key of ['morale','fever','laborStrain','workhouse','unrest','seedReserve','voyages','resettled','seaDeaths','violenceDeaths','feverDeaths','rng','voyageSerial','emigrationReady','riotReady','riotRetaliation','storySeen'])s[key]=structuredClone(additions[key]);
+      s.morale=clamp(s.trust,0,100);s.version=VERSION;
+    }
+    s.resolvedEvent??=null;
+    if(s.resolvedEvent!==null&&(typeof s.resolvedEvent!=='string'||!Object.hasOwn(events,s.resolvedEvent)))return null;
+    const ranges={turn:[0,96],population:[0,1200],deaths:[0,1200],food:[0,1e6],grain:[0,1e6],cattle:[0,1e6],money:[0,1e6],hunger:[0,100],homeless:[0,1200],pressure:[0,100],trust:[0,100],crops:[0,5],clinic:[0,3],actionsLeft:[0,2],exportTarget:[0,26],cattleExport:[0,4],petitionReady:[0,100],pendingAid:[0,1e4]};
+    for(const [k,[lo,hi]] of Object.entries(ranges))if(!Number.isFinite(s[k])||s[k]<lo||s[k]>hi)return null;
+    for(const k of ['turn','population','deaths','homeless','crops','clinic','actionsLeft','cattleExport'])if(!Number.isInteger(s[k]))return null;
+    const extraRanges={morale:[0,100],fever:[0,100],laborStrain:[0,100],workhouse:[0,240],unrest:[0,100],seedReserve:[0,100],resettled:[0,1200],seaDeaths:[0,1200],violenceDeaths:[0,1200],feverDeaths:[0,1200],rng:[0,4294967295],voyageSerial:[0,100],emigrationReady:[0,100],riotReady:[0,100]};
+    for(const [k,[lo,hi]]of Object.entries(extraRanges))if(!Number.isFinite(s[k])||s[k]<lo||s[k]>hi)return null;
+    for(const k of ['workhouse','resettled','seaDeaths','violenceDeaths','feverDeaths','rng','voyageSerial','emigrationReady','riotReady'])if(!Number.isInteger(s[k]))return null;
+    if(!Array.isArray(s.voyages)||s.voyages.length>32||!Array.isArray(s.storySeen)||s.storySeen.length>20||s.storySeen.some(id=>!['seed-family','stone-road','separated-family','fever-ward','empty-chair'].includes(id))||new Set(s.storySeen).size!==s.storySeen.length)return null;
+    const voyageIds=new Set();
+    for(const v of s.voyages){
+      if(!v||!ROUTES[v.destination]||!Number.isInteger(v.passengers)||v.passengers<1||v.passengers>ROUTES[v.destination].capacity||!Number.isInteger(v.remaining)||v.remaining<1||v.remaining>ROUTES[v.destination].months||!Number.isFinite(v.risk)||v.risk<0||v.risk>1||typeof v.provisioned!=='boolean'||!Number.isInteger(v.id)||v.id<1||v.id>s.voyageSerial||voyageIds.has(v.id)||!Number.isInteger(v.departedTurn)||v.departedTurn<0||v.departedTurn>s.turn)return null;
+      voyageIds.add(v.id);
+    }
+    if(livingTotal(s)+s.deaths!==1200||s.homeless+s.workhouse>s.population||s.seaDeaths+s.violenceDeaths+s.feverDeaths>s.deaths||![0.75,1,1.25].includes(s.ration)||typeof s.eventDone!=='boolean'||typeof s.ended!=='boolean'||typeof s.riotRetaliation!=='boolean')return null;
+    if(s.ended!==(s.turn===96||(s.population===0&&atSea(s)===0))||s.history.length!==s.turn)return null;
+    if(s.used.some(id=>!ACTIONS[id])||new Set(s.used).size!==s.used.length||s.used.length!==2-s.actionsLeft)return null;
+    if(s.log.length>2000||s.log.some(e=>!e||!Number.isInteger(e.turn)||typeof e.title!=='string'||typeof e.text!=='string'||e.title.length>200||e.text.length>2000))return null;
+    if(s.history.some(r=>!r||!Number.isFinite(r.survivors)||!Number.isFinite(r.lost)||r.survivors<0||r.lost<0))return null;
+    return s;
+  }catch{return null;}
+}
+
+function residentFigure(s,x,y,scale=1,index=0) {
+  const thin=Math.min(1,s.hunger/100),w=5-thin*2.9,stoop=thin*6;
+  return `<g class="resident ${thin>.55?'emaciated':''}" transform="translate(${x} ${y}) scale(${scale})" style="--walk-delay:-${index*.7}s"><ellipse cy="3" rx="8" ry="3" fill="#101916" opacity=".55"/><g class="resident-body"><path d="M-2-14-4 0m6-14 3 14" stroke="#656b69" stroke-width="${2.8-thin*1.3}" fill="none"/><path d="M-${w} -${31-stoop} Q0 -${34-stoop} ${w} -${31-stoop}l${w*.5} ${17-stoop*.3}h-${w*3}Z" fill="${index%2?'#777f7b':'#626e70'}" stroke="#9d9d8c" stroke-width=".5"/><path d="M-${w} -${29-stoop} -${w+4} -${19-stoop}l3 8m${w*2+1}-${17-stoop} ${w+3} 10-3 9" stroke="#878d82" stroke-width="${2.6-thin*1.2}" fill="none"/><circle cx="${stoop*.5}" cy="-${38-stoop}" r="${4.7-thin*.8}" fill="#b0ad99"/><path d="M-5-${39-stoop}q5-8 10 0" fill="#525f5b"/>${thin>.5?`<path d="m0-${36-stoop} 3 1m-4-3 5 1" stroke="#565e57" stroke-width=".9"/>`:''}</g></g>`;
+}
+function residentPortraits(s) {
+  return `<div class="resident-portraits" aria-label="주민의 상태">${['노라','패트릭','메리'].map((name,i)=>`<figure><svg viewBox="-35 -58 70 70" role="img" aria-label="${name}: ${s.hunger>55?'앙상하고 몸을 굽힌 모습':'두꺼운 옷을 입고 서 있는 모습'}"><ellipse cy="7" rx="30" ry="3" fill="#101917"/>${residentFigure(s,0,0,1.2,i)}</svg><figcaption>${name}<span>${s.hunger>55?'비어 가는 식탁':s.fever>=50?'가시지 않는 열':'오늘의 한 끼'}</span></figcaption></figure>`).join('')}</div>`;
+}
+function townMap(s) {
+  const ruined=s.hunger>45, winter=s.turn%12<2||s.turn%12===11;
+  const house=(x,y,scale=1)=>`<g transform="translate(${x} ${y}) scale(${scale})"><path d="M-1 5 24 16 38 8 14-4Z" fill="#15271c" opacity=".6"/><path d="M0-9 18-5 18 10 0 5Z" fill="${ruined?'#777a62':'#b0ae86'}"/><path d="M18-5 29-12 29 3 18 10Z" fill="#7b8263"/><path d="M-4-9 10-20 34-14 19-3Z" fill="#535f48" stroke="#283b2b"/><path d="M10-20 29-16 34-14 19-3Z" fill="#6c7152"/><path d="M10 0 15 1 15 8 10 7Z" fill="#344d37"/><path d="M3-5 7-4 7 0 3-1Z" fill="#e1c893"/><path d="M24-11 26-12 26-23 22-24 22-10Z" fill="#8f9373"/><path d="M24-23 Q16-32 22-40" fill="none" stroke="#aab595" opacity=".22" stroke-width="3"/></g>`;
+  const tree=(x,y,scale=1)=>`<g transform="translate(${x} ${y}) scale(${scale})"><ellipse cx="4" cy="3" rx="11" ry="4" fill="#1a2d22" opacity=".5"/><path d="M0-13V3" stroke="#747c53" stroke-width="2"/><path d="M-9-10 0-31 10-10Z" fill="#536645"/><path d="M-11-5 0-24 12-5Z" fill="#435d3d"/></g>`;
+  let trees='';for(let i=0;i<60;i++){const x=(i*173+35)%865,y=(i*97+25)%450;if((x<90||y<70||x>760)&&!(x<220&&y>260))trees+=tree(x,y,.6+(i%4)*.18);}
+  let rows='';for(let i=0;i<13;i++)rows+=`<path d="M${108+i*13} ${142+i*1.7}l74-61" stroke="${s.turn>=20?'#7c7650':'#8b9760'}" stroke-width="4" opacity=".5"/>`;
+  let village='';[[356,208,1.05],[395,227,.85],[425,186,1],[459,215,.95],[393,169,.8],[336,244,.8],[421,260,.8],[490,259,.8],[462,298,.85],[370,286,.9],[526,210,.72]].forEach(h=>village+=house(...h));
+  const positions=[[360,199],[398,246],[423,226],[454,244],[353,273],[403,302],[492,302],[506,278],[333,319],[553,181],[626,166]];
+  const people=positions.slice(0,Math.min(positions.length,Math.ceil(s.population/110))).map((p,i)=>residentFigure(s,...p,.65+(i%2)*.14,i)).join('');
+  return `<svg viewBox="0 0 900 475" preserveAspectRatio="xMidYMid slice" role="img" aria-label="가상의 킬모라 마을 지도. 서쪽 감자밭, 중앙 주거지, 동쪽 지주 저택, 남쪽 수출 창고와 항구."><defs><pattern id="grass" width="28" height="25" patternUnits="userSpaceOnUse"><path d="M3 7l2-4m0 4 2-3M17 21l1-3" stroke="#71825b" opacity=".15" fill="none"/></pattern><pattern id="waves" width="34" height="22" patternUnits="userSpaceOnUse"><path d="M3 8q8-4 15 0m7 10 9-2" stroke="#819b88" opacity=".15" fill="none"/></pattern><filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".075"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter></defs>
+  <g filter="url(#paper)"><rect width="900" height="475" fill="${winter?'#364b38':'#3d5238'}"/><path d="M0 19 177 35 268 9 313 53 532 17 649 57 790 14 900 53V475H0Z" fill="#40563b" opacity=".4"/><rect width="900" height="475" fill="url(#grass)"/>
+  <g fill="none" stroke="#7c8960" stroke-width="1" opacity=".15"><path d="M-30 82Q130-10 286 38T654 70 944 15"/><path d="M-30 95Q130 3 286 51T654 83 944 28"/><path d="M-30 110Q130 18 286 66T654 98 944 43"/><path d="M570 424Q760 257 950 371"/><path d="M560 439Q750 272 940 386"/><path d="M550 454Q740 287 930 401"/></g>
+  <path d="M0 271Q111 241 166 314T317 374Q386 362 412 423T530 475H0Z" fill="#263f38"/><path d="M0 271Q111 241 166 314T317 374Q386 362 412 423T530 475" fill="none" stroke="#8a927064" stroke-width="7"/><path d="M0 290Q111 260 166 333T317 393Q386 381 412 442T530 494" fill="none" stroke="#819b8844"/><path d="M0 271Q111 241 166 314T317 374Q386 362 412 423T530 475H0Z" fill="url(#waves)"/>
+  <path d="M84 147 179 73 320 104 226 179Z" fill="#596342" stroke="#8b9364" stroke-width="3"/>${rows}<path d="M94 162 223 193 174 259 49 210Z" fill="#46593a" stroke="#74835b" stroke-width="3"/><path d="M110 176 192 199M92 190 179 216M75 204 165 232" stroke="#90a065" stroke-width="5" opacity=".25"/>
+  <path d="M515 303 650 248 773 301 636 370Z" fill="#797044" stroke="#999068" stroke-width="3"/><g stroke="#aba36b" stroke-width="2" opacity=".5"><path d="m539 305 111-45m-92 55 116-44m-96 55 115-46m-94 56 113-46m-90 56 112-47m-90 57 111-48"/></g>
+  <path d="M325 7Q313 105 368 137T396 245Q376 312 319 355M396 245Q450 283 558 315M381 165Q539 166 659 119T843 171" fill="none" stroke="#263c29" stroke-width="18"/><path d="M325 7Q313 105 368 137T396 245Q376 312 319 355M396 245Q450 283 558 315M381 165Q539 166 659 119T843 171" fill="none" stroke="#8c8d65" stroke-width="11"/><path d="M325 7Q313 105 368 137T396 245Q376 312 319 355M396 245Q450 283 558 315M381 165Q539 166 659 119T843 171" fill="none" stroke="#bbc090" stroke-width="2" stroke-dasharray="2 6" opacity=".2"/>
+  ${trees}${village}
+  <g transform="translate(585 141)"><path d="M-28-11 28-2 47-15 47 17 29 28-28 15Z" fill="#90977a"/><path d="M-34-12-9-35 53-16 28 6Z" fill="#536247"/><path d="M-30-13-30-54-15-67-2-50-2-7Z" fill="#a7a78b"/><path d="M-35-53-17-74 3-52-15-56Z" fill="#5c624c"/><path d="M-23-38v13m10-17v13" stroke="#384d38" stroke-width="5"/><path d="M12 9v12" stroke="#4b5e42" stroke-width="9"/><path d="M-17-74v-10m-4 3h8" stroke="#b1b491" stroke-width="2"/></g>
+  <g transform="translate(714 88)"><path d="M-43 0 27 17 53-1 53 32 29 48-43 27Z" fill="#a5a689"/><path d="M-48-2-20-26 58-6 27 19Z" fill="#555d47"/><path d="M-28-5v-25h7V-3" fill="#a1a484"/><path d="M-33 11l8 2m9 2 8 2m10 2 8 2m10 3 8 2m-55-4 8 2m9 2 8 2m10 2 8 2m10 3 8 2" stroke="#3e513c" stroke-width="5"/><path d="M-48 37 26 57 65 30" fill="none" stroke="#8c9773" stroke-width="5"/><path d="M-61 43 30 67 78 33" fill="none" stroke="#546644" stroke-width="8"/></g>
+  <g transform="translate(541 332)"><path d="M-39-20 26-2 54-21 54 22 26 42-39 25Z" fill="#9d9670"/><path d="M-46-21-14-48 60-22 27 2Z" fill="#5d6148"/><path d="M4 14 20 18 20 36 4 32Z" fill="#3b4a32"/><path d="M10 17v17m5-16v17" stroke="#96835a"/><path d="M-29-6-17-3-17 7-29 4Z" fill="#46573a"/><g fill="#b7a36d"><ellipse cx="-46" cy="33" rx="7" ry="10"/><ellipse cx="-59" cy="28" rx="7" ry="10"/><ellipse cx="-58" cy="40" rx="7" ry="10"/></g></g>
+  <g transform="translate(321 361) rotate(29)"><path d="M-16 0H16V82H-16Z" fill="#858365"/><path d="M-15 5h30m-30 10h30m-30 10h30m-30 10h30m-30 10h30m-30 10h30m-30 10h30m-30 10h30" stroke="#384939" stroke-width="2"/><path d="M-18-1v90m36-90v90" stroke="#b2a681" stroke-width="3"/></g>
+  <g transform="translate(264 412) rotate(-13)"><path d="M-46 0Q0 42 46 0Z" fill="#b6a677" stroke="#1e382d" stroke-width="3"/><path d="M0-52v65" stroke="#c6bb91" stroke-width="3"/><path d="M-4-50-39-7H-4Z" fill="#d1ccb0" opacity=".8"/><path d="M5-42 33-5H5Z" fill="#b7bda0" opacity=".7"/></g>
+  <g fill="#c8c5a2" stroke="#6b7755"><ellipse cx="684" cy="205" rx="8" ry="4"/><ellipse cx="719" cy="224" rx="8" ry="4"/><ellipse cx="696" cy="239" rx="8" ry="4"/><path d="m678 207-1 6m10-6 1 6m25 13-1 6m10-6 1 6m-33 13-1 6m10-6 1 6"/></g>
+  ${people}<g transform="translate(616 376)"><path d="M-33-20h66v37h-66Z" fill="#7e8880"/><path d="m-39-20 16-19 62 19Z" fill="#3f4b48"/><path d="M-20-9h8m8 0h8m8 0h8m-42 12h8m8 0h8m8 0h8" stroke="#283a34" stroke-width="6"/><path d="M-25 20h52" stroke="#9b9f90" stroke-width="3"/></g>
+  <g font-family="Georgia,serif" fill="#a4b394" opacity=".4" font-style="italic"><text x="33" y="378" font-size="17" transform="rotate(-8 33 378)">Atlantic Ocean</text><text x="559" y="447" font-size="12" letter-spacing="5">K I L M O R A</text><text x="39" y="36" font-size="10" letter-spacing="2">COUNTY MAYO · WESTERN IRELAND</text></g></g></svg>
+  <div class="cold-rain" aria-hidden="true"><i></i><i></i></div><div class="sea-fog" aria-hidden="true"></div>
+  <div class="compass">N<b>✧</b></div>
+  <button class="map-label" data-place="fields" style="left:23%;top:42%">감자밭 <small>${s.turn>=20?'마름병 이후의 경작지':'주민의 생존 주식'}</small></button>
+  <button class="map-label" data-place="homes" style="left:46%;top:69%">마을 주거지 <small>${s.population.toLocaleString()}명의 삶</small></button>
+  <button class="map-label owned" data-place="granary" style="left:63%;top:82%">봉인된 곡물 창고 <small>지주 소유 · ${s.grain.toFixed(0)}단위</small></button>
+  <button class="map-label owned" data-place="estate" style="left:80%;top:38%">부재 지주의 저택 <small>소작료 징수</small></button>
+  <button class="map-label" data-place="church" style="left:64%;top:48%">교회 · 구호소 <small>대체 경작 ${s.crops} / 5</small></button>
+  <button class="map-label owned" data-place="harbor" style="left:24%;top:89%">수출·이민 항구 <small>항해 중 ${s.voyages.reduce((n,v)=>n+v.passengers,0)}명</small></button>
+  <button class="map-label" data-place="workhouse" style="left:79%;top:92%">구빈원 <small>${s.workhouse} / 240명</small></button>`;
+}
+
+const $=id=>document.getElementById(id),KEY='last-harvest-v1';
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=n=>Number(n).toLocaleString('ko-KR',{maximumFractionDigits:1});
+const newGame=()=>freshGame(crypto.getRandomValues(new Uint32Array(1))[0]);
+let storageAvailable=true,invalidSave=false,migratedSave=false,motionEnabled=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+let state=newGame();
+try{
+  const raw=localStorage.getItem(KEY);
+  if(raw){const saved=restore(raw);if(saved){state=saved;migratedSave=JSON.parse(raw).version===1;if(migratedSave&&!localStorage.getItem(KEY+'-backup'))localStorage.setItem(KEY+'-backup',raw);}else invalidSave=true;}
+  const motion=localStorage.getItem('last-harvest-motion');if(motion!==null)motionEnabled=motion==='on';
+}catch{storageAvailable=false;}
+let activeView='village',toastTimer;const presentedNotices=new Set();
+function toast(text){$('toast').textContent=text;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),3800);}
+function save(){try{localStorage.setItem(KEY,serialize(state));storageAvailable=true;}catch{storageAvailable=false;}$('save-status').textContent=storageAvailable?'이 브라우저에 자동 저장됨':'저장 불가 · 이 창에서만 유지';}
+function modal(html){$('modal-body').innerHTML=html;if(!$('modal').open)$('modal').showModal();$('modal-body').scrollTop=0;}
+function closeModal(){$('modal').close();}
+$('close-modal').addEventListener('click',closeModal);
+$('modal').addEventListener('click',e=>{if(e.target===$('modal')){const r=$('modal').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeModal();}});
+function applyChoice(index){const r=chooseEvent(state,index);if(r.error){toast(r.error);return;}state=r.state;closeModal();save();render();toast('당신의 결정을 행정 기록에 남겼습니다.');showTurnNotice();}
+function choiceButtons(event,attribute='data-choice'){
+  return event.choices.map((c,i)=>`<button class="choice" ${attribute}="${i}" ${choiceReason(state,i)?'disabled':''} title="${esc(choiceReason(state,i)||c.effect)}">${esc(c.label)}<small>${esc(c.effect)}</small></button>`).join('');
+}
+function showCrisis(){
+  const c=crisisFor(state);if(!c)return;
+  presentedNotices.add(`riot:${state.turn}`);
+  const victims=Math.min(state.population,Math.ceil(state.population*.018+state.unrest*.08));
+  const displaced=Math.max(0,state.population-state.workhouse-state.homeless);
+  modal(`<span class="eyebrow">THE GRANARY RIOT · 결정이 필요한 위기</span><h2>${c.title}</h2><p>${c.body}</p><div class="story-choices"><button class="choice crisis-choice" data-crisis="suppress">영국군을 불러 발포를 허가한다<small>주민 ${victims}명 즉시 사망 · 사기 −24 · 평판 −22 · 압력 −16 · 불안 −52</small></button><button class="choice" data-crisis="standaside">군을 부르지 않고 길을 열어 준다<small>봉인 곡물 약탈 · 60% 식량화 · 월말 최대 ${displaced}명 추가 축출 · 압력 +18</small></button></div><p class="story-foot">창을 닫고 장부를 확인할 수 있습니다. 어느 쪽이든 결정해야 다음 달로 진행됩니다.</p>`);
+  $('modal-body').querySelectorAll('[data-crisis]').forEach(b=>b.onclick=()=>{const r=resolveCrisis(state,b.dataset.crisis);if(r.error){toast(r.error);return;}state=r.state;closeModal();save();render();if(state.ended)resultSummary();else showTurnNotice();});
+}
+function showTurnNotice(force=false){
+  if($('modal').open||state.ended)return;
+  if(crisisFor(state)){if(force||!presentedNotices.has(`riot:${state.turn}`))showCrisis();return;}
+  const e=eventFor(state),key=`story:${state.turn}:${e.id}`;
+  if(e.personal&&!state.eventDone&&(force||!presentedNotices.has(key))){
+    presentedNotices.add(key);modal(`<span class="eyebrow">A LIFE IN KILMORA · ${esc(e.tag)}</span><div class="story-ornament" aria-hidden="true">❦</div><h2>${esc(e.title)}</h2><p>${esc(e.body)}</p><div class="story-choices">${choiceButtons(e,'data-story-choice')}</div><p class="story-foot">이 인물과 사연은 게임을 위해 구성한 가상 서사입니다.</p>`);
+    $('modal-body').querySelectorAll('[data-story-choice]').forEach(b=>b.onclick=()=>applyChoice(+b.dataset.storyChoice));return;
+  }
+  const letters=state.lastReport?.voyageLetters||[],letterKey=`letters:${state.turn}`;
+  if(letters.length&&!presentedNotices.has(letterKey)){
+    presentedNotices.add(letterKey);modal(`<span class="eyebrow">A LETTER FROM ACROSS THE SEA</span><h2>도착하지 못한 이름들</h2><p>출항일에 적었던 명부가 항구로 돌아왔습니다. 남겨진 가족들이 봉투를 열기 전에 당신의 표정을 살핍니다.</p>${letters.map(l=>`<div class="voyage-letter"><h3>${esc(l.destination)}행 선박</h3><p>${l.passengers}명 승선 · <strong>${l.arrived}명 도착</strong> · <strong class="danger">${l.dead}명 해상 사망</strong></p></div>`).join('')}<p class="story-foot">해상 사망은 총 사망자에 포함되며 주민 사기와 행정관 평판에 영향을 줍니다.</p><div class="modal-actions"><button id="letter-close">이름들을 기록한다</button></div>`);$('letter-close').onclick=()=>{closeModal();showTurnNotice();};
+  }
+}
+function resultSummary(){
+  const known=state.population+state.resettled,sea=atSea(state),rate=(known/1200*100).toFixed(1);
+  modal(`<span class="eyebrow">${state.turn>=96?'DECEMBER 1852 · THE RECORD REMAINS':'THE RECORD ENDS HERE'}</span><h2>${known?'마지막 겨울을 건넌 사람들':'더는 부를 이름이 없습니다'}</h2><p>킬모라에 처음 살던 1,200명 가운데</p><div class="big-number">${num(known)} <small>명의 생존이 확인되었습니다</small></div><div class="result-grid"><div>마을에 남음<strong>${num(state.population)}</strong></div><div>해외에 정착<strong>${num(state.resettled)}</strong></div><div>총 사망<strong>${num(state.deaths)}</strong></div><div>그중 해상 사망<strong>${num(state.seaDeaths)}</strong></div><div>그중 발포 사망<strong>${num(state.violenceDeaths)}</strong></div><div>항해 중 · 결말 미확인<strong>${num(sea)}</strong></div></div><p>확인 생존 비율 ${rate}% · ${state.turn}개월의 기록. ${sea?'아직 항해 중인 주민은 정착 생존자로 계산하지 않았습니다.':''} 이 결과는 실제 대기근의 생존율 추정치가 아닙니다.</p><div class="modal-actions"><button id="result-download">기록 내려받기</button><button id="result-restart">새 기록 시작</button></div>`);
+  $('result-download').onclick=download;$('result-restart').onclick=restartDialog;
+}
+function resource(title,value,unit,foot,icon,gold=false){return `<article class="resource ${gold?'gold':''}"><div class="resource-head"><span>${title}</span>${gold?'<span class="lock-tag">봉인</span>':`<span class="icon" aria-hidden="true">${icon}</span>`}</div><div class="resource-number">${value}<small>${unit}</small></div><div class="resource-foot">${foot}</div></article>`;}
+function render(){
+  const t=Math.max(0,state.turn-(state.ended?1:0)),display={year:Math.min(1852,1845+Math.floor(t/12)),month:t%12+1};
+  const f=forecast(state),q=quotaOf(state),need=foodNeed(state),crisis=crisisFor(state);
+  document.body.classList.toggle('motion-paused',!motionEnabled);document.body.classList.toggle('town-distressed',state.hunger>50||state.fever>=50);document.body.classList.toggle('town-crisis',!!crisis);
+  $('motion-toggle').textContent=motionEnabled?'비 연출 켜짐':'비 연출 꺼짐';$('motion-toggle').setAttribute('aria-pressed',String(motionEnabled));
+  $('date').textContent=`${display.year}년 ${display.month}월`;$('season').textContent=seasonOf(state);$('turn').textContent=state.ended?'기록 종료':`${state.turn+1} / 96개월`;
+  $('resources').innerHTML=resource('마을에 남은 주민',num(state.population),'명',`총 사망 ${num(state.deaths)}명 <span class="${state.homeless?'bad':''}">· 노숙 ${num(state.homeless)}명</span>`,'♧')+resource('주민의 식량',num(state.food),'단위',`정상 배급 <span class="${state.food<need?'bad':'good'}">${need?num(state.food/need):0}개월분</span>`,'◒')+resource('수출용 곡물',num(state.grain),'단위','주민 배급에 자동 사용되지 않음','',true)+resource('지주의 가축',num(state.cattle),'마리','대납 가능 · 도축 시 행정 압력','',true)+resource('구호 기금',`£${num(state.money)}`,'',`대체 경작 ${state.crops}/5 · 진료소 ${state.clinic}/3`,'✧');
+  $('crisis-banner').classList.toggle('hidden',!crisis&&!state.riotRetaliation);
+  $('crisis-banner').innerHTML=crisis?'<div><strong>식량 폭동 · 창고와 항구에 주민들이 모였습니다.</strong><span>위기에 대응해야 월말을 마감할 수 있습니다.</span></div><button id="review-crisis">결정하러 가기 →</button>':state.riotRetaliation?'<div><strong>집단 축출 예고</strong><span>다음 월말에 구빈원 밖의 모든 주거지에 축출이 집행됩니다. 겨울 노출 피해를 확인하세요.</span></div>':'';
+  if($('review-crisis'))$('review-crisis').onclick=showCrisis;
+  $('map').innerHTML=townMap(state);
+  $('map-weather').textContent=state.ended?'행정관의 기록이 마감되었습니다.':crisis?'항구의 빗소리 사이로 사람들의 외침이 들립니다.':state.hunger>45?'차가운 비 속에서 주민들의 등이 굽어 갑니다.':state.fever>=50?'비에 젖은 구빈원에서 기침 소리가 멎지 않습니다.':'대서양의 차가운 비가 지붕과 밭을 두드립니다.';
+  $('map').querySelectorAll('[data-place]').forEach(b=>b.onclick=()=>placeInfo(b.dataset.place));
+  renderSurvival();renderVoyages();
+  $('ration-value').textContent=`${num(need*state.ration)}단위 / 월`;
+  $('rations').querySelectorAll('button').forEach(b=>{b.classList.toggle('selected',+b.dataset.ration===state.ration);b.setAttribute('aria-pressed',String(+b.dataset.ration===state.ration));b.disabled=state.ended;});
+  $('exports').max=q;$('exports').value=state.exportTarget;$('exports').disabled=state.ended||state.riotRetaliation;
+  $('export-label').textContent=`${state.exportTarget} / ${q}단위`;
+  $('cattle-exports').value=state.cattleExport;$('cattle-exports').disabled=state.ended||state.riotRetaliation;
+  [...$('cattle-exports').options].forEach(o=>o.disabled=+o.value>state.cattle);
+  $('food-hint').textContent=`1단위 = 50명의 한 달 식사. 영양 결핍 ${num(state.hunger)} / 100. ${state.ration<1?'긴축 배급은 결핍과 불안을 누적시킵니다.':state.ration>1?'회복 배급은 영양 결핍을 더 빨리 줄입니다.':'충분히 배급하면 영양 결핍이 회복됩니다.'}`;
+  $('forecast').innerHTML=state.ended?'기록이 마감되었습니다. 장부와 행정 기록을 살펴볼 수 있습니다.':crisis?'<span class="danger">폭동 대응 대기 · 대응을 정한 뒤 월말 예상이 확정됩니다.</span>':`<span>월말 예상</span><span>배급 <strong>${num(f.foodUsed)}</strong></span><span>할당량 <strong class="${f.shortfall?'danger':''}">${num(f.quota-f.shortfall)} / ${q}</strong></span><span>마을 사망 <strong class="${f.lost?'danger':''}">${f.lost}명</strong></span><span>그중 질병 <strong class="${f.disease?'danger':''}">${f.disease}명</strong></span><span>축출 <strong class="${f.evicted?'danger':''}">${f.evicted}명</strong></span>${f.harvest?`<span>9월 수확 <strong>+${f.harvest}</strong></span>`:''}${f.aid+f.workhouseFood?`<span>구호 <strong>+${num(f.aid+f.workhouseFood)}</strong></span>`:''}${f.voyageLetters.length?'<span>이민선 도착 예정 · 항해 결과는 편지로 확인</span>':''}${f.punished?'<span class="danger">⚑ 군경 징벌 예상</span>':''}`;
+  const e=eventFor(state);$('event-tag').textContent=state.ended?'마지막 장':crisis?'긴급 위기':e.tag;$('event-title').textContent=state.ended?'남겨진 이름들':crisis?crisis.title:e.title;
+  $('event-body').textContent=state.ended?`마을 ${num(state.population)}명, 해외 정착 ${num(state.resettled)}명, 항해 중 ${atSea(state)}명. 사망한 ${num(state.deaths)}명의 이름도 이 기록에 남습니다.`:crisis?crisis.body:e.body;
+  $('event-choices').innerHTML=state.ended?'<button class="choice" id="show-results">통치 결과 보기 ↗</button>':crisis?'<button class="choice crisis-choice" id="desk-crisis">창고 앞의 위기에 대응한다 →</button>':state.eventDone?'<div class="event-resolved">✓ 이번 달의 결정을 기록했습니다.<br><small>배분과 행정 조치를 확인한 뒤 월말을 마감하세요.</small></div>':choiceButtons(e);
+  $('event-choices').querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>applyChoice(+b.dataset.choice));
+  if($('show-results'))$('show-results').onclick=resultSummary;if($('desk-crisis'))$('desk-crisis').onclick=showCrisis;
+  $('action-count').textContent=`${state.ended?0:state.actionsLeft} / 2 남음`;
+  const icons={import:'⇣',divert:'⚿',crops:'♧',shelter:'⌂',petition:'✉',works:'⚒',clinic:'✚',slaughter:'◇',emigrate:'⚓',workhouse:'▥',release:'⇥',sanitation:'✧'};
+  const subs={import:'£58 · 식량 +36',divert:'곡물 → 식량 · 압력 +24',crops:'£52 · 매월 식량 +2.4',shelter:'£32 · 최대 90명 수용',petition:'£6 · 월말 식량 +26',works:'정부 £32 · 중노동·발열',clinic:'£42 · 질병 피해 완화',slaughter:'가축 4 → 식량 24',emigrate:'£48부터 · 항해 사망 위험',workhouse:'£10 · 정부 지원·과밀',release:'최대 60명 · 거처 필요',sanitation:'£24 · 발열 위험 −22'};
+  $('actions').innerHTML=Object.entries(ACTIONS).map(([id,a])=>`<button class="action ${['divert','slaughter','emigrate','works','workhouse'].includes(id)?'risky':''}" data-action="${id}" ${actionReason(state,id)?'disabled':''} title="${esc(actionReason(state,id)||a.desc)}"><span class="action-symbol" aria-hidden="true">${icons[id]}</span><strong>${a.name}${state.used.includes(id)?' ✓':''}</strong><small>${esc(actionReason(state,id)||subs[id])}</small></button>`).join('');
+  $('actions').querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>actionDialog(b.dataset.action));
+  $('trust-meter').style.width=state.trust+'%';$('trust-value').textContent=Math.round(state.trust)+'%';$('pressure-meter').style.width=state.pressure+'%';$('pressure-value').textContent=Math.round(state.pressure)+'%';
+  $('pressure-note').textContent='월말 행정 압력 65 이상: 기금·곡물 압수와 최대 45명 축출. 할당량 완납 시 압력 −5. 가족의 사망과 발포는 사기·평판에도 상처를 남깁니다.';
+  $('footer-note').textContent=state.lastReport?`지난달 마을 사망 ${state.lastReport.lost}명 · 해상 사망 ${state.lastReport.seaLost||0}명 · 축출 ${state.lastReport.evicted}명`:'목표: 1852년 12월까지, 마을을 떠난 사람까지 한 명이라도 더 살려내세요.';
+  $('next-month').innerHTML=state.ended?'마지막 기록을 펼치다 <span>↗</span>':crisis?'폭동에 대응하다 <span>→</span>':'한 달을 마감하다 <span>→</span>';
+  renderLedger();renderJournal();
+}
+function renderSurvival(){
+  const item=(name,value,detail,danger=false)=>`<div class="hardship-stat ${danger?'critical':''}"><span>${name}</span><strong>${value}</strong><small>${detail}</small></div>`;
+  $('survival-monitor').innerHTML=`${residentPortraits(state)}<div class="hardship-grid">${item('주민 사기',num(state.morale)+'%','죽음과 가족 분리의 무게',state.morale<35)}${item('발열 위험',num(state.fever)+'/100',state.fever>=35?'발진티푸스 사망 위험':'35부터 전염병 사망 발생',state.fever>=35)}${item('사회 불안',num(state.unrest)+'/100','65부터 식량 폭동',state.unrest>=55)}${item('구빈원',state.workhouse+' / 240명','120명 초과 시 과밀 가중',state.workhouse>120)}${item('노동 부담',num(state.laborStrain)+'/100','중노동 → 발열 위험',state.laborStrain>=35)}${item('씨감자 비축',num(state.seedReserve)+'%','다음 감자 수확에 반영',state.seedReserve<80)}</div>`;
+}
+function renderVoyages(){
+  $('voyages-panel').innerHTML=`<div class="panel-heading"><div><span class="eyebrow">THE ONES WHO LEFT</span><h2>바다 너머의 이름들</h2></div><span class="subtle">출항은 생존이 아닙니다</span></div><div class="migration-totals"><span>항해 중 <strong>${atSea(state)}명</strong></span><span>정착 확인 <strong>${state.resettled}명</strong></span><span>해상 사망 <strong class="${state.seaDeaths?'danger':''}">${state.seaDeaths}명</strong></span></div><div class="voyage-list">${state.voyages.length?state.voyages.map(v=>`<article class="voyage-row"><div><strong>${esc(ROUTES[v.destination].name)}</strong><small>${v.passengers}명 승선 · ${v.provisioned?'추가 보급':'최소 보급'} · 사망 위험 ${Math.round(v.risk*100)}%</small></div><span>${v.remaining}개월 남음</span></article>`).join(''):'<p class="empty-voyage">항구를 떠난 뒤에도, 그 사람들의 운명을 기다립니다.</p>'}</div>`;
+}
+function renderLedger(){
+  const q=quotaOf(state),f=forecast(state);
+  $('ledger').innerHTML=`<p class="ledger-explainer">같은 땅에서 자란 식량.<br>그러나 같은 사람의 몫은 아닙니다.</p><div class="ledger-row"><span>주민에게 배급할 수 있는 식량</span><span>${num(state.food)}</span></div><div class="ledger-row"><span>주민이 먹을 수 없는 봉인 곡물</span><span>${num(state.grain)}</span></div><div class="ledger-row"><span>이번 달 계약 / 예상 미납</span><span>${q} / ${num(f.shortfall)}</span></div><div class="ledger-row"><span>행정 수입 / 진료소 운영비</span><span>£${num(f.income)} / £${num(f.upkeep)}</span></div><div class="ledger-row population-equation"><span>마을 + 정착 + 항해 중 + 사망</span><span>${state.population} + ${state.resettled} + ${atSea(state)} + ${state.deaths} = 1200</span></div><div class="ledger-block"><h3>유보는 곧 배급이 아닙니다.</h3><p>곡물은 창고 개방 명령으로만 주민 식량이 됩니다. 구빈원 지원은 수용자 몫만큼, 공공근로 구호는 노동의 대가로 들어옵니다. 그 대가에는 과밀과 질병이 따릅니다.</p></div><div class="history-chart" role="img" aria-label="월별 마을 인구: 처음 1200명, 현재 ${state.population}명">${[1200,...state.history.map(r=>r.survivors)].map(n=>`<i style="height:${Math.max(1,n/1200*100)}%" title="마을 ${n}명"></i>`).join('')}</div><div class="history-chart-label">1845년 1월 → 현재 · 마을 인구 변화. 이민으로 떠난 주민은 별도 추적합니다.</div>`;
+}
+function renderJournal(){
+  $('journal').innerHTML=state.log.map(e=>{const t=Math.min(e.turn,95);return `<article class="entry ${e.tone==='danger'?'danger':''}"><time>${1845+Math.floor(t/12)}<br>${String(t%12+1).padStart(2,'0')}월</time><div><h3>${esc(e.title)}</h3><p>${esc(e.text)}</p></div></article>`;}).join('');
+}
+function actionDialog(id){
+  const a=ACTIONS[id],risky=['divert','slaughter','emigrate','works','workhouse'].includes(id);
+  const extra=id==='emigrate'?`<div class="voyage-form"><label for="voyage-destination">이민 항로<select id="voyage-destination"><option value="america">북미행 · 최대 60명 · 2개월</option><option value="australia" ${dateOf(state).year<1848?'disabled':''}>호주 지원 항로 · 최대 40명 · 4개월${dateOf(state).year<1848?' · 1848년 개방':''}</option></select></label><label class="supply-check"><input type="checkbox" id="voyage-supplies">추가 식량·의료 보급 £24 · 사망 위험 55% 감소</label><div id="voyage-plan" class="modal-callout"></div></div>`:['workhouse','works'].includes(id)?'<p class="modal-callout">정부 지원은 당장의 식사를 돕지만, 과밀과 중노동은 발열 위험을 누적시킵니다. 영양 결핍까지 겹치면 발진티푸스로 사망자가 늘어납니다.</p>':['divert','slaughter'].includes(id)?'<p class="modal-callout">행정 압력과 할당량을 확인하세요. 월말 압력 65 이상이면 징벌이 집행됩니다.</p>':'';
+  modal(`<span class="eyebrow">ADMINISTRATIVE ORDER · ${state.actionsLeft} ACTIONS LEFT</span><h2>${a.name}</h2><p>${a.desc}</p>${extra}<p class="order-cost">행정 조치 1회를 사용합니다.${id!=='emigrate'&&a.cost?` 기금 £${a.cost}를 즉시 지출합니다.`:''}</p><div class="modal-actions"><button id="execute-action" class="${risky?'risky':''}">${id==='emigrate'?'출항을 허가한다':'명령 집행'}</button><button id="cancel-action">돌아가기</button></div>`);
+  const options=()=>id==='emigrate'?{destination:$('voyage-destination').value,provisioned:$('voyage-supplies').checked}:{};
+  const updateVoyage=()=>{const terms=voyageTerms(state,options()),reason=actionReason(state,id,options());$('voyage-plan').innerHTML=`<p><strong>${terms.passengers}명 승선 · 총 £${terms.cost} · ${terms.months}개월</strong><br>승선자 한 명당 해상 사망 위험 ${Math.round(terms.risk*100)}%. 영양 상태와 보급에 따라 달라집니다. 출항 시 사기 −6, 평판 −4. 항해 중에는 마을 식량을 소비하지 않습니다.</p>${reason?`<p class="danger">${esc(reason)}</p>`:''}`;$('execute-action').disabled=!!reason;};
+  if(id==='emigrate'){$('voyage-destination').onchange=updateVoyage;$('voyage-supplies').onchange=updateVoyage;updateVoyage();}
+  $('cancel-action').onclick=closeModal;$('execute-action').onclick=()=>{const r=takeAction(state,id,options());if(r.error){toast(r.error);return;}state=r.state;closeModal();save();render();toast(`${a.name} 명령을 집행했습니다.`);showTurnNotice();};
+}
+function placeInfo(id){
+  const year=Math.min(1852,dateOf(state).year),f=forecast(state);
+  const details={
+    fields:['감자밭',`${year}년 기본 수확은 ${HARVEST[year-1845]}단위이며 노동력과 씨감자 비축(${state.seedReserve}%)에 따라 줄어듭니다. 매년 9월 수확합니다. 1846년에는 마름병으로 수확이 거의 사라집니다. 대체 경작은 매월 별도의 식량을 제공합니다.`],
+    homes:['마을 주거지',`마을 ${num(state.population)}명, 노숙 ${num(state.homeless)}명, 구빈원 ${state.workhouse}명. 굶주림이 누적되면 주민들의 몸이 앙상해지고 사기가 떨어집니다. 겨울에는 거처 없는 주민의 피해가 커집니다.`],
+    granary:['봉인된 곡물 창고',`현재 ${num(state.grain)}단위. 이 물량은 주민 식량으로 자동 전환되지 않습니다. 창고 개방은 배급을 돕지만 행정 압력을 높입니다. 사회 불안이 65에 도달하거나 영양 결핍 70 이상·사기 42 이하가 겹치면 폭동이 일어납니다.`],
+    estate:['부재 지주의 저택',`이번 달 할당량은 ${quotaOf(state)}단위입니다. 미달 비율에 따라 최대 54명이 축출됩니다. 압력 65 이상이면 군경 징벌이 집행됩니다. 폭동을 방관하면 별도의 집단 축출이 예고됩니다.`],
+    church:['교회와 구호소',`대체 경작 ${state.crops}/5, 진료소 ${state.clinic}/3단계입니다. 진료소는 발열 위험과 질병 사망을 줄이며, 격리·세탁·휴식은 발열 위험과 노동 부담을 낮춥니다.`],
+    harbor:['수출과 이민의 항구',`예상 수출은 곡물 ${num(f.grainShipped)}단위와 가축 ${f.cattleShipped}마리입니다. 이민선은 3개월 간격으로 마련할 수 있습니다. 현재 항해 중 ${atSea(state)}명, 정착 확인 ${state.resettled}명, 해상 사망 ${state.seaDeaths}명입니다. 호주 지원 항로는 1848년부터 열립니다.`],
+    workhouse:['구빈원',`${state.workhouse}/240명 수용 중입니다. 60명씩 수용·퇴소할 수 있습니다. 수용자는 정부 식량을 받고 겨울 노출 피해를 피하지만, 120명을 넘어서면 과밀 위험이 더 빨리 증가합니다. 퇴소자는 다시 거처가 필요합니다. 발열 위험 35부터 질병 사망이 발생할 수 있습니다.`],
+  };const [title,body]=details[id];modal(`<span class="eyebrow">A PLACE IN KILMORA</span><h2>${title}</h2><p>${body}</p>`);
+}
+function hardshipHelp(){modal(`<h2>서로를 밀어 올리는 재난</h2><h3>구빈원과 공공근로</h3><p>구빈원은 정원 240명, 1회 최대 60명을 수용합니다. 수용자 50명당 월 식량 1단위를 지원받습니다. 120명을 넘으면 과밀로 발열 위험이 더 빠르게 증가합니다. 공공근로는 £32와 식량 4단위를 얻는 대신 영양 결핍·노동 부담·발열 위험을 올립니다.</p><h3>발진티푸스</h3><p>영양 결핍, 노동 부담, 과밀은 발열 위험을 누적시킵니다. 35 이상부터 전염병 사망이 발생하며, 구빈원에 수용자가 많을수록 피해도 커집니다. 진료소·격리·세탁·휴식과 노동 중단으로 낮출 수 있습니다. 식량이 있어도 이미 번진 전염병은 즉시 사라지지 않습니다.</p><h3>폭동과 집단 축출</h3><p>사회 불안 65 이상, 또는 영양 결핍 70 이상·사기 42 이하가 겹치면 폭동이 발생합니다. 발포는 즉시 주민을 죽이고 사기·평판을 떨어뜨립니다. 방관은 창고 곡물을 주민 식량으로 전환하지만, 월말에는 구빈원 밖의 모든 주거지에서 축출이 집행됩니다. 대응 후 4개월은 같은 위기가 재발하지 않습니다.</p><h3>항해</h3><p>북미는 저렴하고 빠르지만 사망 위험이 높습니다. 호주 지원 항로는 1848년부터 열리며 비용과 시간이 더 들고 위험은 낮습니다. £24의 추가 보급으로 위험을 줄일 수 있습니다. 항해 결과는 도착 때 확률로 정해지며 저장한 진행을 다시 열어도 같은 항해 결과가 유지됩니다. 이 수치는 게임용 가정입니다.</p>`);}
+function help(){modal(`<h2>한 달을 버티는 법</h2><p>1845년 1월부터 1852년 12월까지 처음의 1,200명 중 최대한 많은 주민을 살려내세요. 마을을 떠난 사람도 장부에서 사라지지 않습니다.</p><ol><li><strong>책상 위 공문과 주민 사연</strong>에 응답합니다. 개인 사연과 폭동은 결정해야 월말을 마감할 수 있습니다.</li><li><strong>행정 조치 2회</strong>로 구호·경작·거처·이민·의료를 마련합니다. 같은 조치는 한 달에 한 번만 가능합니다.</li><li><strong>배급과 수출</strong>을 정하고 월말 사망·축출·질병 예상을 확인합니다.</li><li><strong>한 달을 마감</strong>하면 식사와 사망, 항해 도착, 기금 정산을 계산하고 자동 저장합니다.</li></ol><h3>1846년을 대비하세요</h3><p>9월 감자 수확이 붕괴합니다. 대체 작물과 기금을 준비하세요. 겨울은 12·1·2월입니다. 식량과 거처뿐 아니라 사기, 발열 위험, 사회 불안을 함께 살펴야 합니다.</p><h3>저장과 연출</h3><p>같은 브라우저·주소에서 자동으로 이어집니다. 기존 버전의 저장도 이어받습니다. 기록은 텍스트로 내려받을 수 있습니다. 지도 아래 ‘비 연출’을 끄면 비와 주민 움직임을 멈춥니다. 동작 줄이기 시스템 설정도 따릅니다.</p><div class="modal-actions"><button id="help-hardship">가혹한 시스템의 규칙</button><button id="help-sources">역사적 배경과 출처</button></div>`);$('help-sources').onclick=sources;$('help-hardship').onclick=hardshipHelp;}
+function sources(){modal(`<h2>역사와 게임의 경계</h2><p>아일랜드 대기근, 작황 붕괴, 소작료·수출·축출, 구빈원과 구호 노동, 질병과 이민의 문제에서 출발한 가상 시뮬레이션입니다.</p><h3>이민 항로의 차이</h3><p>‘관선(棺船, Coffin Ship)’은 정부 소유 선박이라는 뜻이 아니라 관에 빗댄 표현입니다. 북미행의 일부 열악한 항해와 호주의 정부 지원 이민을 같은 조건으로 볼 수는 없습니다. 호주 국립박물관은 정부 감독 항로의 식량·의료 조건이 대체로 더 나았다고 설명합니다. 게임에서도 북미와 호주 항로의 비용·기간·위험을 구분했습니다. 두 항로의 정원과 사망 확률은 실제 통계가 아닙니다.</p><h3>구호와 전염병</h3><p>구빈원의 과밀과 열악한 조건, 영양실조와 질병은 중요한 역사적 맥락입니다. 그러나 모든 구호가 구빈원 수용이나 무의미한 노동만을 조건으로 한 것은 아닙니다. 게임에는 청원·식량 수입·급식 지원도 남아 있습니다. ‘발열 위험’은 발진티푸스를 포함한 질병 환경을 압축한 게임 지표이며 의학적 전파 모형이 아닙니다.</p><h3>가상으로 구성한 부분</h3><p>킬모라와 노라·패트릭·메리 등 개인 인물은 가상입니다. 씨감자 절도에 대한 의무적 추방 법률을 재현한 것이 아닙니다. 지방 행정관의 집중된 권한, 매달 할당량, 압력 65에서의 징벌, 폭동 방관에 대한 마을 전체 축출은 사용자 제안의 갈등을 압축한 가상 규칙입니다. 실제 지역별 제도나 사건을 그대로 재현하지 않습니다. 실제 마름병은 1845년에 시작되었으며 게임은 1846년의 큰 피해와 구분합니다.</p><h3>배경 자료</h3><ul><li><a href="https://www.nationalarchives.ie/topics/famine/Great_Famine.pdf" target="_blank" rel="noreferrer">아일랜드 국립기록원 — 대기근 자료 안내</a></li><li><a href="https://www.ighm.org/learn.html" target="_blank" rel="noreferrer">아일랜드 대기근 박물관 — 구호·질병·이민</a></li><li><a href="https://www.nma.gov.au/exhibitions/not-just-ned/background" target="_blank" rel="noreferrer">호주 국립박물관 — 아일랜드 이민과 항해 조건</a></li><li><a href="https://researchrepository.ucd.ie/bitstreams/d1bb85a4-0f0f-453a-a543-688e916d0507/download" target="_blank" rel="noreferrer">UCD — 대기근기 에니스킬런 구빈원 연구</a></li><li><a href="https://historyireland.com/food-exports-from-ireland-1846-47/" target="_blank" rel="noreferrer">History Ireland — 식량 수출</a></li><li><a href="https://www.cambridge.org/core/journals/irish-historical-studies/article/abs/irish-grain-trade-183948/A1F5D0804E3F3AB283D9228F80171D43" target="_blank" rel="noreferrer">Irish Historical Studies — 곡물 무역</a></li></ul><p>게임의 생존 수치는 실제 역사 통계나 개인의 책임에 대한 판단이 아닙니다.</p>`);}
+function restartDialog(){modal('<h2>새 행정 기록을 시작할까요?</h2><p>현재 자동 저장 기록이 새 게임으로 바뀝니다. 필요하면 먼저 기록을 내려받으세요.</p><div class="modal-actions"><button id="restart-download">기록 내려받기</button><button id="confirm-restart" class="risky">1845년으로 돌아가기</button></div>');$('restart-download').onclick=download;$('confirm-restart').onclick=()=>{state=newGame();presentedNotices.clear();save();render();closeModal();toast('1845년 1월, 새 기록을 시작합니다.');};}
+function download(){const lines=['마지막 수확 — 킬모라 행정 기록',`마을 ${state.population}명 / 정착 ${state.resettled}명 / 항해 중 ${atSea(state)}명 / 총 사망 ${state.deaths}명`,`해상 사망 ${state.seaDeaths}명 / 발포 사망 ${state.violenceDeaths}명 / 경과 ${state.turn}개월`,'가상 시뮬레이션의 플레이 기록. 역사 통계가 아닙니다.','',...state.log.slice().reverse().map(e=>`[${1845+Math.floor(Math.min(e.turn,95)/12)}.${String(Math.min(e.turn,95)%12+1).padStart(2,'0')}] ${e.title}\n${e.text}\n`)];const url=URL.createObjectURL(new Blob(['\uFEFF'+lines.join('\n')],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='마지막-수확-행정기록.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('행정 기록을 내려받았습니다.');}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{activeView=b.dataset.view;document.querySelectorAll('[data-view]').forEach(n=>{n.classList.toggle('active',n.dataset.view===activeView);n.setAttribute('aria-pressed',String(n.dataset.view===activeView));});document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==activeView+'-view'));}));
+$('rations').addEventListener('click',e=>{const b=e.target.closest('[data-ration]');if(!b)return;state=setPolicy(state,{ration:+b.dataset.ration});save();render();});
+$('exports').addEventListener('input',e=>{state=setPolicy(state,{exportTarget:+e.target.value});save();render();});
+$('cattle-exports').addEventListener('change',e=>{state=setPolicy(state,{cattleExport:+e.target.value});save();render();});
+$('next-month').addEventListener('click',()=>{if(state.ended){resultSummary();return;}if(monthBlock(state)){showTurnNotice(true);return;}state=advanceMonth(state);save();render();if(state.ended)resultSummary();else{const r=state.lastReport;toast(`${r.year}년 ${r.month}월 마감 · 마을 사망 ${r.lost}명${r.evicted?' · 축출 '+r.evicted+'명':''}`);showTurnNotice();}});
+$('motion-toggle').onclick=()=>{motionEnabled=!motionEnabled;try{localStorage.setItem('last-harvest-motion',motionEnabled?'on':'off');}catch{}render();};
+$('help').onclick=help;$('hardship-info').onclick=hardshipHelp;$('map-info').onclick=help;$('restart').onclick=restartDialog;$('download').onclick=download;$('sources-link').onclick=sources;document.querySelector('.monogram').onclick=e=>{e.preventDefault();document.querySelector('[data-view="village"]').click();};
+render();save();showTurnNotice();if(invalidSave)toast('이전 저장 기록을 읽을 수 없어 새 게임을 시작했습니다.');else if(migratedSave)toast('기존 기록을 이어받았습니다. 이민·구빈원·폭동 시스템이 추가되었습니다.');else if(!storageAvailable)toast('브라우저 저장소를 사용할 수 없습니다. 이 창을 닫으면 진행이 사라집니다.');
+
+</script>
+</body>
+</html>

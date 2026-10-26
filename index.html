@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17251e">
+  <meta name="description" content="1845–1852, 아일랜드 대기근 속 가상의 마을을 돌보는 생존형 사회 관리 시뮬레이션.">
+  <title>마지막 수확 — The Last Harvest</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="rail" aria-label="주 메뉴">
+    <a class="monogram" href="#" aria-label="마지막 수확 홈">LH<span>1845</span></a>
+    <nav><button class="nav active" data-view="village" aria-label="마을 지도" title="마을 지도"><span aria-hidden="true">⌖</span><small>마을</small></button><button class="nav" data-view="ledger" aria-label="자원 장부" title="자원 장부"><span aria-hidden="true">▤</span><small>장부</small></button><button class="nav" data-view="journal" aria-label="행정 기록" title="행정 기록"><span aria-hidden="true">✎</span><small>기록</small></button></nav>
+    <button id="help" class="rail-help" aria-label="게임 안내">?</button><span class="rail-line">AN GORTA MÓR</span>
+  </aside>
+  <main>
+    <header class="header"><div><div class="eyebrow">A SURVIVAL CHRONICLE · 1845–1852</div><h1>마지막 수확 <span>The Last Harvest</span></h1></div><div class="header-right"><span class="save-status" id="save-status">로컬 자동 저장</span><button id="restart" class="quiet">새 기록 시작 <span aria-hidden="true">↗</span></button></div></header>
+    <section class="datebar"><div><span class="live-dot"></span><strong>킬모라, 아일랜드 서부</strong><span class="location-note">가상의 해안 마을</span></div><div><span id="season"></span><strong id="date"></strong><span id="turn"></span></div></section>
+    <section id="resources" class="resources" aria-label="마을 주요 자원"></section>
+    <div id="crisis-banner" class="crisis-banner hidden" role="alert"></div>
+    <div class="workspace">
+      <div class="left-column">
+        <section id="village-view" class="view panel map-panel">
+          <div class="panel-heading"><div><span class="eyebrow">THE TOWN & ITS PEOPLE</span><h2>당신이 지켜야 할 곳</h2></div><span class="map-key"><i></i>주민 자원 <i class="gold"></i>지주 소유</span></div>
+          <div id="map" class="map"></div>
+          <div class="map-caption"><span><i class="live-dot"></i><span id="map-weather">서쪽에서 차가운 바람이 불어옵니다.</span></span><div><button id="motion-toggle" class="text-link" aria-pressed="true">비 연출 켜짐</button><button id="map-info" class="text-link">지도 읽기 ↗</button></div></div>
+        </section>
+        <section id="ledger-view" class="view panel hidden"><div class="panel-heading"><div><span class="eyebrow">THE TWO LEDGERS</span><h2>식량은 누구의 것인가</h2></div></div><div id="ledger"></div></section>
+        <section id="journal-view" class="view panel hidden"><div class="panel-heading"><div><span class="eyebrow">THE ADMINISTRATOR'S RECORD</span><h2>행정관의 기록</h2></div><button id="download" class="quiet">기록 내려받기 ↓</button></div><div id="journal" class="journal"></div></section>
+        <section class="panel survival-panel"><div class="panel-heading"><div><span class="eyebrow">BEHIND EVERY NUMBER, A NAME</span><h2>살아남는다는 것</h2></div><button id="hardship-info" class="text-link">연쇄 재난의 규칙 ↗</button></div><div id="survival-monitor"></div></section>
+        <section class="panel policy-panel"><div class="panel-heading"><div><span class="eyebrow">MONTHLY ALLOCATION</span><h2>이번 달의 배분</h2></div><span class="subtle">월말에 집행됩니다</span></div><div class="allocation-grid"><div><label class="field-label">주민 배급 <span id="ration-value"></span></label><div class="segments" id="rations"><button data-ration="0.75">긴축 <small>75%</small></button><button data-ration="1" class="selected">정상 <small>100%</small></button><button data-ration="1.25">회복 <small>125%</small></button></div><p class="field-hint" id="food-hint"></p></div><div><label class="field-label" for="exports">곡물 수출 <span id="export-label"></span></label><input type="range" id="exports" min="0" max="22" value="22"><div class="range-labels"><span>주민을 위해 유보</span><span>계약 이행</span></div><div class="cattle-control"><label for="cattle-exports">가축으로 대납 <small>1마리 = 할당량 4</small></label><select id="cattle-exports" aria-label="수출할 가축 수"><option value="0">0마리</option><option value="1">1마리</option><option value="2">2마리</option><option value="3">3마리</option><option value="4">4마리</option></select></div></div></div><div class="forecast" id="forecast" aria-live="polite"></div></section>
+        <section id="voyages-panel" class="panel voyages-panel"></section>
+      </div>
+      <aside class="right-column">
+        <section class="panel dispatch"><div class="dispatch-top"><span class="eyebrow">ON YOUR DESK</span><span id="event-tag"></span></div><div class="letter-mark" aria-hidden="true">❦</div><h2 id="event-title"></h2><p id="event-body"></p><div id="event-choices"></div><span class="dispatch-foot">KILMORA · LOCAL ADMINISTRATION</span></section>
+        <section class="panel actions-panel"><div class="panel-heading"><div><span class="eyebrow">YOUR ORDERS</span><h2>행정 조치</h2></div><span id="action-count" class="pill"></span></div><div id="actions" class="actions"></div></section>
+      </aside>
+    </div>
+    <section class="pressure-strip"><div><span>행정관 평판</span><div class="meter"><i id="trust-meter"></i></div><strong id="trust-value"></strong></div><div><span>행정 압력</span><div class="meter pressure"><i id="pressure-meter"></i><b title="징벌 기준 65%"></b></div><strong id="pressure-value"></strong></div><p id="pressure-note"></p></section>
+    <footer class="turn-footer"><div><span class="eyebrow">EVERY MONTH, A CHOICE.</span><p id="footer-note">장부 너머에는 사람의 삶이 있습니다.</p></div><button id="next-month" class="next-month">한 달을 마감하다 <span aria-hidden="true">→</span></button></footer>
+    <p class="historical-note">역사적 상황을 바탕으로 한 가상 시뮬레이션입니다. 마을·수치·할당량·사건의 세부 규칙은 게임을 위해 구성했습니다. <button id="sources-link">역사와 게임의 경계 ↗</button></p>
+  </main>
+  <dialog id="modal"><div class="modal-head"><span class="eyebrow">THE LAST HARVEST</span><button id="close-modal" aria-label="창 닫기">×</button></div><div id="modal-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="ui.js"></script>
+</body>
+</html>
